@@ -100,6 +100,8 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
+sudo apt install curl
+
 if ! command -v curl >/dev/null 2>&1; then
   echo "Error: curl is required." >&2
   exit 1

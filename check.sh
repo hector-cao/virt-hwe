@@ -13,7 +13,7 @@ Usage: $(basename "$0")
 Checks base/-hwe package exclusivity by installation tests.
 
 Options:
-  --ext-deps  Also test external dependency install (debvm, genimage, sbuild-qemu) during checks
+  --ext-deps  Also test external dependency install (debvm, genimage, sbuild-qemu, libvirt-daemon-driver-qemu) during checks
   -h, --help  Show this help
 EOF
 }
@@ -255,6 +255,28 @@ check_external_deps_stage() {
   fi
   log_installed_qemu_packages "$context after sbuild-qemu install"
 
+  step "Validating libvirt-daemon-driver-qemu selected correct qemu-system-x86 variant ($context)"
+  if ! run_cmd "Installing package: libvirt-daemon-driver-qemu ($context)" \
+    apt-get install -y -o Dpkg::Options::=--force-confnew libvirt-daemon-driver-qemu; then
+    echo "ERROR [$context]: failed to install libvirt-daemon-driver-qemu"
+    return 1
+  fi
+  if [ "$expected_set" = "base" ]; then
+    if ! is_installed "qemu-system-x86" || is_installed "qemu-system-x86-hwe"; then
+      echo "ERROR [$context]: expected qemu-system-x86 installed and qemu-system-x86-hwe not installed after libvirt-daemon-driver-qemu installation"
+      return 1
+    fi
+  elif [ "$expected_set" = "hwe" ]; then
+    if ! is_installed "qemu-system-x86-hwe" || is_installed "qemu-system-x86"; then
+      echo "ERROR [$context]: expected qemu-system-x86-hwe installed and qemu-system-x86 not installed after libvirt-daemon-driver-qemu installation"
+      return 1
+    fi
+  else
+    echo "ERROR [$context]: unknown expected set '$expected_set'"
+    return 1
+  fi
+  log_installed_qemu_packages "$context after libvirt-daemon-driver-qemu install"
+
   return 0
 }
 
@@ -279,8 +301,8 @@ remove_all_test_packages() {
 }
 
 remove_external_dep_packages() {
-  run_cmd_allow_fail "Removing external deps (best-effort): debvm genimage sbuild-qemu" \
-    apt-get remove -y debvm genimage sbuild-qemu
+  run_cmd_allow_fail "Removing external deps (best-effort): debvm genimage sbuild-qemu libvirt-daemon-driver-qemu" \
+    apt-get remove -y debvm genimage sbuild-qemu libvirt-daemon-driver-qemu
 }
 
 checked_pairs=0

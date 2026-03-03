@@ -37,6 +37,9 @@ chmod +x "$SCRIPT_DIR/run.sh"
 chmod +x "$PULL_SCRIPT"
 chmod +x "$CHECK_SCRIPT"
 
+echo "Pulling missing .deb files with: $(basename "$PULL_SCRIPT") --arch '$DEB_ARCH_REGEX'"
+"$PULL_SCRIPT" --arch "$DEB_ARCH_REGEX" --output-dir "$SCRIPT_DIR"
+
 echo "Packing .deb files with: $(basename "$PULL_SCRIPT") --pack --arch '$DEB_ARCH_REGEX'"
 "$PULL_SCRIPT" --pack --arch "$DEB_ARCH_REGEX" --output-dir "$SCRIPT_DIR"
 
