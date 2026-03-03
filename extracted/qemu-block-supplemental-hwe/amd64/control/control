@@ -9,7 +9,7 @@ Enhances: qemu-system-arm-hwe, qemu-system-mips-hwe, qemu-system-misc-hwe, qemu-
 Breaks: qemu-block-extra (<< 1:8.2.0+ds-4ubuntu2~)
 Replaces: qemu-block-extra (<< 1:8.2.0+ds-4ubuntu2~), qemu-block-supplemental
 Conflicts: qemu-block-supplemental, virt
-Provides: virt-hwe
+Provides: virt-hwe, qemu-block-supplemental
 Section: otherosfs
 Priority: optional
 Homepage: http://www.qemu.org/

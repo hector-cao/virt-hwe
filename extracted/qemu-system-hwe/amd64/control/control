@@ -7,7 +7,7 @@ Installed-Size: 99
 Depends: qemu-system-arm-hwe, qemu-system-mips-hwe, qemu-system-ppc-hwe, qemu-system-riscv-hwe, qemu-system-s390x-hwe, qemu-system-sparc-hwe, qemu-system-x86-hwe, qemu-system-misc-hwe
 Conflicts: qemu-system, virt
 Replaces: qemu-system
-Provides: virt-hwe
+Provides: virt-hwe, qemu-system
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign

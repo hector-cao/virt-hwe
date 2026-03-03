@@ -9,7 +9,7 @@ Recommends: qemu-utils-hwe, ipxe-qemu, qemu-efi-riscv64, qemu-system-gui-hwe (= 
 Suggests: samba, vde2, passt
 Breaks: qemu-system-data (<< 1:9.1.0+ds-4~), qemu-system-misc (<< 1:9.1.0+ds-9~)
 Replaces: qemu-system-data (<< 1:9.1.0+ds-4~), qemu-system-misc (<< 1:9.1.0+ds-9~), qemu-system-riscv
-Provides: qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-riscv32 (= 1:10.2.1+ds-1ubuntu1), qemu-system-riscv64 (= 1:10.2.1+ds-1ubuntu1), virt-hwe
+Provides: qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-riscv32 (= 1:10.2.1+ds-1ubuntu1), qemu-system-riscv64 (= 1:10.2.1+ds-1ubuntu1), virt-hwe, qemu-system-riscv
 Conflicts: qemu-system-riscv, virt
 Section: otherosfs
 Priority: optional

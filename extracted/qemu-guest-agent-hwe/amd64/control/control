@@ -8,7 +8,7 @@ Pre-Depends: init-system-helpers (>= 1.54~)
 Depends: libc6 (>= 2.38), libglib2.0-0t64 (>= 2.78.0), libnuma1 (>= 2.0.11), libudev1 (>= 183), liburing2 (>= 2.3)
 Conflicts: qemu-guest-agent, virt
 Replaces: qemu-guest-agent
-Provides: virt-hwe
+Provides: virt-hwe, qemu-guest-agent
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign
