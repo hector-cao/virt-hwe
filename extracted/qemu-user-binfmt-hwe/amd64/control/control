@@ -4,11 +4,12 @@ Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 39
-Depends: qemu-user (= 1:10.2.1+ds-1ubuntu1)
+Depends: qemu-user-hwe (= 1:10.2.1+ds-1ubuntu1)
 Recommends: systemd
 Breaks: qemu-user-static
-Replaces: qemu-user-static (<< 1:9.1.0)
+Replaces: qemu-user-static (<< 1:9.1.0), qemu-user-binfmt
 Provides: qemu-user-static
+Conflicts: qemu-user-binfmt
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign

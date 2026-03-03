@@ -4,11 +4,12 @@ Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 25379
-Depends: libc6 (>= 2.42), libfdt1 (>= 1.7.2), libglib2.0-0t64 (>= 2.78.0), libgmp10 (>= 2:6.3.0+dfsg), libhogweed6t64, libjpeg8 (>= 8c), libnettle8t64 (>= 3.9~), libpixman-1-0 (>= 0.19.6), libsasl2-2 (>= 2.1.28+dfsg1), libspice-server1 (>= 0.14.2), libusb-1.0-0 (>= 2:1.0.23~), libxendevicemodel1 (>= 4.20.2+7-g1badcf5035), libxenevtchn1 (>= 4.20.2+7-g1badcf5035), libxenforeignmemory1 (>= 4.20.2+7-g1badcf5035), libxengnttab1 (>= 4.20.2+7-g1badcf5035), libxenmisc4.20 (>= 4.20.2+7-g1badcf5035), libxenstore4 (>= 4.16.0), libxentoolcore1 (>= 4.20.2+7-g1badcf5035), zlib1g (>= 1:1.2.0), qemu-system-data (>> 1:10.2.1+ds~), seabios, ipxe-qemu
-Recommends: qemu-utils, ovmf
+Depends: libc6 (>= 2.42), libfdt1 (>= 1.7.2), libglib2.0-0t64 (>= 2.78.0), libgmp10 (>= 2:6.3.0+dfsg), libhogweed6t64, libjpeg8 (>= 8c), libnettle8t64 (>= 3.9~), libpixman-1-0 (>= 0.19.6), libsasl2-2 (>= 2.1.28+dfsg1), libspice-server1 (>= 0.14.2), libusb-1.0-0 (>= 2:1.0.23~), libxendevicemodel1 (>= 4.20.2+7-g1badcf5035), libxenevtchn1 (>= 4.20.2+7-g1badcf5035), libxenforeignmemory1 (>= 4.20.2+7-g1badcf5035), libxengnttab1 (>= 4.20.2+7-g1badcf5035), libxenmisc4.20 (>= 4.20.2+7-g1badcf5035), libxenstore4 (>= 4.16.0), libxentoolcore1 (>= 4.20.2+7-g1badcf5035), zlib1g (>= 1:1.2.0), qemu-system-data-hwe (>> 1:10.2.1+ds~), seabios, ipxe-qemu
+Recommends: qemu-utils-hwe, ovmf
 Breaks: qemu-system-x86-xen (<< 1:7.0+dfsg-7ubuntu1)
-Replaces: qemu-system-x86-xen (<< 1:7.0+dfsg-7ubuntu1)
+Replaces: qemu-system-x86-xen (<< 1:7.0+dfsg-7ubuntu1), qemu-system-xen
 Provides: qemu-system-x86-xen
+Conflicts: qemu-system-xen
 Section: otherosfs
 Priority: optional
 Homepage: http://www.qemu.org/

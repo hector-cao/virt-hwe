@@ -7,8 +7,9 @@ Installed-Size: 39
 Depends: qemu-user (= 1:10.2.1+ds-1ubuntu1)
 Recommends: systemd
 Breaks: qemu-user-static
-Replaces: qemu-user-static (<< 1:9.1.0)
+Replaces: qemu-user-static (<< 1:9.1.0), qemu-user-binfmt-hwe
 Provides: qemu-user-static
+Conflicts: qemu-user-binfmt-hwe
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign
