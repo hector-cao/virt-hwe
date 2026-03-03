@@ -1,0 +1,9 @@
+2c323c9c6025852bc9f748bc76fec306  usr/lib/x86_64-linux-gnu/qemu/audio-dbus.so
+23bf94a5e239b1d4552f2cd533a7bff9  usr/lib/x86_64-linux-gnu/qemu/hw-display-virtio-gpu-gl.so
+047925cdb4529d349edc55aea58d09d5  usr/lib/x86_64-linux-gnu/qemu/hw-display-virtio-gpu-pci-gl.so
+a91bdb70fa7016b9bdbfdbeeac55103f  usr/lib/x86_64-linux-gnu/qemu/hw-display-virtio-vga-gl.so
+7ceeea8b3af78e7a1302f22560b3180e  usr/lib/x86_64-linux-gnu/qemu/ui-dbus.so
+28e766217dee41aa0926d9c50b045292  usr/lib/x86_64-linux-gnu/qemu/ui-egl-headless.so
+45ad3fba435611fa6789436a5c50e543  usr/lib/x86_64-linux-gnu/qemu/ui-opengl.so
+7259028f4bd8f3a99b7fc9c3b1387ce1  usr/share/doc/qemu-system-modules-opengl/copyright
+49476b05d33f2b47f847af2b5589c1ea  usr/share/lintian/overrides/qemu-system-modules-opengl

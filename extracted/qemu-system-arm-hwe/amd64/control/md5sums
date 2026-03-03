@@ -1,0 +1,4 @@
+35584784590b0268104ba3d6fef9131f  usr/bin/qemu-system-aarch64
+4c8711f1866d5dfd7505f826a4962d59  usr/bin/qemu-system-arm
+61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-aarch64.1.gz
+61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-arm.1.gz

@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+### added by qemu/debian/gen-module-upgrade.sh:
+case $1 in
+(remove)
+  # remove modules for all versions not just one
+  for dirf in /run/qemu/Debian_*/.savemoddir; do
+    [ -f "$dirf" ] || continue
+    dir="${dirf%/*}"
+    ( cd "$dir"; rm -f block-blkio.so block-gluster.so )
+    if [ ! "$(ls -- "$dir/")" ]; then
+      rm -f "$dirf"
+      umount "$dir" 2>/dev/null || :
+      rmdir "$dir" 2>/dev/null || :
+    fi
+  done
+  ;;
+esac
+### end added section
