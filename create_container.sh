@@ -4,36 +4,72 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 IMAGE_NAME="${IMAGE_NAME:-ubuntu-devel-run}"
 CONTAINER_NAME="${CONTAINER_NAME:-ubuntu-devel-qemu}"
+PULL_SCRIPT="$SCRIPT_DIR/pull_launchpad_qemu_debs.sh"
+CHECK_SCRIPT="$SCRIPT_DIR/check.sh"
+DEB_ARCH_REGEX="${DEB_ARCH_REGEX:-amd64|all}"
+STAGING_DIR="${STAGING_DIR:-}"
+AUTO_STAGING_DIR=0
 
-if ! command -v git >/dev/null 2>&1; then
-  echo "Error: git is required to clone repositories."
-  echo "Install it and re-run (e.g. sudo apt-get install -y git)."
-  exit 1
-fi
+cleanup() {
+  if [ "$AUTO_STAGING_DIR" -eq 1 ] && [ -n "$STAGING_DIR" ] && [ -d "$STAGING_DIR" ]; then
+    sudo rm -rf "$STAGING_DIR"
+  fi
+}
+
+trap cleanup EXIT
 
 if [ ! -f "$SCRIPT_DIR/run.sh" ]; then
   echo "Error: $SCRIPT_DIR/run.sh not found."
   exit 1
 fi
 
+if [ ! -f "$PULL_SCRIPT" ]; then
+  echo "Error: $PULL_SCRIPT not found."
+  exit 1
+fi
+
+if [ ! -f "$CHECK_SCRIPT" ]; then
+  echo "Error: $CHECK_SCRIPT not found."
+  exit 1
+fi
+
 chmod +x "$SCRIPT_DIR/run.sh"
+chmod +x "$PULL_SCRIPT"
+chmod +x "$CHECK_SCRIPT"
 
-ensure_repo() {
-  local repo_url="$1"
-  local branch="$2"
-  local destination="$3"
+echo "Packing .deb files with: $(basename "$PULL_SCRIPT") --pack --arch '$DEB_ARCH_REGEX'"
+"$PULL_SCRIPT" --pack --arch "$DEB_ARCH_REGEX" --output-dir "$SCRIPT_DIR"
 
-  if [ -d "$destination" ]; then
-    echo "Skipping clone/fetch for $(basename "$destination") (folder already exists)."
-    return 0
-  fi
+if [ "$STAGING_DIR" = "/" ]; then
+  echo "Error: STAGING_DIR cannot be /."
+  exit 1
+fi
 
-  echo "Cloning $(basename "$destination") (branch '$branch')..."
-  git clone --branch "$branch" --single-branch "$repo_url" "$destination"
-}
+if [ -z "$STAGING_DIR" ]; then
+  STAGING_DIR="$(mktemp -d "/tmp/${CONTAINER_NAME}-workspace.XXXXXX")"
+  AUTO_STAGING_DIR=1
+fi
 
-ensure_repo "https://git.launchpad.net/~hectorcao/ubuntu/+source/qemu" "hwe-experiment" "$SCRIPT_DIR/qemu"
-ensure_repo "https://git.launchpad.net/~hectorcao/ubuntu/+source/qemu" "hwe-experiment-hwe" "$SCRIPT_DIR/qemu-hwe"
+rm -rf "$STAGING_DIR"
+mkdir -p "$STAGING_DIR"
+
+cp -f "$SCRIPT_DIR/run.sh" "$STAGING_DIR/run.sh"
+cp -f "$CHECK_SCRIPT" "$STAGING_DIR/check.sh"
+chmod +x "$STAGING_DIR/run.sh"
+chmod +x "$STAGING_DIR/check.sh"
+
+if [ ! -f "$STAGING_DIR/check.sh" ]; then
+  echo "Error: failed to stage check.sh in $STAGING_DIR"
+  exit 1
+fi
+
+mapfile -t built_debs < <(find "$SCRIPT_DIR" -maxdepth 1 -type f -name '*.deb' | sort)
+if [ "${#built_debs[@]}" -eq 0 ]; then
+  echo "Warning: no .deb files found in $SCRIPT_DIR after packing."
+else
+  cp -f "${built_debs[@]}" "$STAGING_DIR/"
+  echo "Staged .deb files: ${#built_debs[@]}"
+fi
 
 if ! docker image inspect "$IMAGE_NAME" >/dev/null 2>&1; then
   echo "Image '$IMAGE_NAME' not found. Building it from Dockerfile..."
@@ -45,29 +81,21 @@ if docker container inspect "$CONTAINER_NAME" >/dev/null 2>&1; then
   docker rm -f "$CONTAINER_NAME" >/dev/null
 fi
 
-echo "Starting container '$CONTAINER_NAME' with mounted folders..."
+echo "Starting container '$CONTAINER_NAME' with /workspace mounted from $STAGING_DIR..."
 
 if [ -t 0 ] && [ -t 1 ]; then
   if [ "$#" -gt 0 ]; then
     docker run -it \
       --name "$CONTAINER_NAME" \
       --entrypoint /workspace/run.sh \
-      -v "$SCRIPT_DIR/run.sh:/workspace/run.sh:ro" \
-        -v "$SCRIPT_DIR/qemu:/workspace/qemu" \
-        -v "$SCRIPT_DIR/qemu-hwe:/workspace/qemu-hwe" \
-      --mount type=tmpfs,destination=/workspace/qemu/.git \
-      --mount type=tmpfs,destination=/workspace/qemu-hwe/.git \
+      -v "$STAGING_DIR:/workspace" \
       "$IMAGE_NAME" \
       "$@"
   else
     docker run -it \
       --name "$CONTAINER_NAME" \
       --entrypoint /workspace/run.sh \
-      -v "$SCRIPT_DIR/run.sh:/workspace/run.sh:ro" \
-      -v "$SCRIPT_DIR/qemu:/workspace/qemu" \
-      -v "$SCRIPT_DIR/qemu-hwe:/workspace/qemu-hwe" \
-      --mount type=tmpfs,destination=/workspace/qemu/.git \
-      --mount type=tmpfs,destination=/workspace/qemu-hwe/.git \
+      -v "$STAGING_DIR:/workspace" \
       "$IMAGE_NAME"
   fi
 else
@@ -75,22 +103,14 @@ else
     docker run \
       --name "$CONTAINER_NAME" \
       --entrypoint /workspace/run.sh \
-      -v "$SCRIPT_DIR/run.sh:/workspace/run.sh:ro" \
-        -v "$SCRIPT_DIR/qemu:/workspace/qemu" \
-        -v "$SCRIPT_DIR/qemu-hwe:/workspace/qemu-hwe" \
-      --mount type=tmpfs,destination=/workspace/qemu/.git \
-      --mount type=tmpfs,destination=/workspace/qemu-hwe/.git \
+      -v "$STAGING_DIR:/workspace" \
       "$IMAGE_NAME" \
       "$@"
   else
     docker run \
       --name "$CONTAINER_NAME" \
       --entrypoint /workspace/run.sh \
-      -v "$SCRIPT_DIR/run.sh:/workspace/run.sh:ro" \
-      -v "$SCRIPT_DIR/qemu:/workspace/qemu" \
-      -v "$SCRIPT_DIR/qemu-hwe:/workspace/qemu-hwe" \
-      --mount type=tmpfs,destination=/workspace/qemu/.git \
-      --mount type=tmpfs,destination=/workspace/qemu-hwe/.git \
+      -v "$STAGING_DIR:/workspace" \
       "$IMAGE_NAME"
   fi
 fi
