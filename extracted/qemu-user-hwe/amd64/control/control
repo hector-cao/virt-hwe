@@ -1,4 +1,4 @@
-Package: qemu-user
+Package: qemu-user-hwe
 Source: qemu
 Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64

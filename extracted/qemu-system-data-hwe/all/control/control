@@ -1,4 +1,4 @@
-Package: qemu-system-data
+Package: qemu-system-data-hwe
 Source: qemu
 Version: 1:10.2.1+ds-1ubuntu1
 Architecture: all

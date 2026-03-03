@@ -1,4 +1,4 @@
-Package: qemu-system-misc
+Package: qemu-system-misc-hwe
 Source: qemu
 Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64

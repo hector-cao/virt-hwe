@@ -1,4 +1,4 @@
-Package: qemu-system-gui
+Package: qemu-system-gui-hwe
 Source: qemu
 Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64
