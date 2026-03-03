@@ -8,8 +8,8 @@ Depends: libc6 (>= 2.42), libfdt1 (>= 1.7.2), libglib2.0-0t64 (>= 2.78.0), libgm
 Recommends: qemu-utils-hwe, ovmf
 Breaks: qemu-system-x86-xen-hwe (<< 1:7.0+dfsg-7ubuntu1)
 Replaces: qemu-system-x86-xen-hwe (<< 1:7.0+dfsg-7ubuntu1), qemu-system-xen
-Provides: qemu-system-x86-xen-hwe
-Conflicts: qemu-system-xen
+Provides: qemu-system-x86-xen-hwe, virt-hwe
+Conflicts: qemu-system-xen, virt
 Section: otherosfs
 Priority: optional
 Homepage: http://www.qemu.org/

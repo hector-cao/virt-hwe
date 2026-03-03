@@ -6,7 +6,8 @@ Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 19184
 Breaks: qemu-system-common (<< 1:8.2.2+ds-1~), qemu-system-misc (<< 1:10.1.0~rc2+ds-1), qemu-system-s390x (<< 1:9.2.0~)
 Replaces: qemu-system-common (<< 1:8.2.2+ds-1~), qemu-system-misc (<< 1:10.1.0~rc2+ds-1), qemu-system-data-hwe
-Conflicts: qemu-system-data-hwe
+Conflicts: qemu-system-data-hwe, virt-hwe
+Provides: virt
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign

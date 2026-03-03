@@ -7,7 +7,8 @@ Installed-Size: 317
 Depends: libc6 (>= 2.17), libglib2.0-0t64 (>= 2.30.0), libpixman-1-0 (>= 0.19.6), libspice-server1 (>= 0.16.0), qemu-system-modules-opengl-hwe (= 1:10.2.1+ds-1ubuntu1), qemu-system-common-hwe (= 1:10.2.1+ds-1ubuntu1)
 Breaks: qemu-system-common (<< 1:8.1.0+ds-1~exp2~)
 Replaces: qemu-system-common (<< 1:8.1.0+ds-1~exp2~), qemu-system-modules-spice
-Conflicts: qemu-system-modules-spice
+Conflicts: qemu-system-modules-spice, virt
+Provides: virt-hwe
 Section: otherosfs
 Priority: optional
 Homepage: http://www.qemu.org/

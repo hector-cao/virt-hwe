@@ -8,7 +8,8 @@ Depends: libaio1t64 (>= 0.3.93), libc6 (>= 2.42), libfuse3-4 (>= 3.17.2), libgli
 Recommends: qemu-block-extra (= 1:10.2.1+ds-1ubuntu1)
 Breaks: qemu-system-common (<< 1:8.0+dfsg-5~)
 Replaces: qemu-system-common (<< 1:8.0+dfsg-5~), qemu-utils-hwe
-Conflicts: qemu-utils-hwe
+Conflicts: qemu-utils-hwe, virt-hwe
+Provides: virt
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign

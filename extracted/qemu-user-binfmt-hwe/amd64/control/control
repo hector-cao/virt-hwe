@@ -8,8 +8,8 @@ Depends: qemu-user-hwe (= 1:10.2.1+ds-1ubuntu1)
 Recommends: systemd
 Breaks: qemu-user-static
 Replaces: qemu-user-static (<< 1:9.1.0), qemu-user-binfmt
-Provides: qemu-user-static
-Conflicts: qemu-user-binfmt
+Provides: qemu-user-static, virt-hwe
+Conflicts: qemu-user-binfmt, virt
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign
