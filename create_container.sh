@@ -6,6 +6,9 @@ IMAGE_NAME="${IMAGE_NAME:-ubuntu-devel-run}"
 CONTAINER_NAME="${CONTAINER_NAME:-ubuntu-devel-qemu}"
 PULL_SCRIPT="$SCRIPT_DIR/pull_launchpad_qemu_debs.sh"
 CHECK_SCRIPT="$SCRIPT_DIR/check.sh"
+CHECK_UPGRADE_SCRIPT="$SCRIPT_DIR/check-upgrade.sh"
+PPA_UPDATE_SCRIPT="$SCRIPT_DIR/update_local_ppa_from_dir.sh"
+HWE_11_2_DIR="$SCRIPT_DIR/hwe-11.2"
 DEB_ARCH_REGEX="${DEB_ARCH_REGEX:-amd64|all}"
 STAGING_DIR="${STAGING_DIR:-}"
 AUTO_STAGING_DIR=0
@@ -33,9 +36,26 @@ if [ ! -f "$CHECK_SCRIPT" ]; then
   exit 1
 fi
 
+if [ ! -f "$CHECK_UPGRADE_SCRIPT" ]; then
+  echo "Error: $CHECK_UPGRADE_SCRIPT not found."
+  exit 1
+fi
+
+if [ ! -f "$PPA_UPDATE_SCRIPT" ]; then
+  echo "Error: $PPA_UPDATE_SCRIPT not found."
+  exit 1
+fi
+
+if [ ! -d "$HWE_11_2_DIR" ]; then
+  echo "Error: $HWE_11_2_DIR not found."
+  exit 1
+fi
+
 chmod +x "$SCRIPT_DIR/run.sh"
 chmod +x "$PULL_SCRIPT"
 chmod +x "$CHECK_SCRIPT"
+chmod +x "$CHECK_UPGRADE_SCRIPT"
+chmod +x "$PPA_UPDATE_SCRIPT"
 
 echo "Pulling missing .deb files with: $(basename "$PULL_SCRIPT") --arch '$DEB_ARCH_REGEX'"
 "$PULL_SCRIPT" --arch "$DEB_ARCH_REGEX" --output-dir "$SCRIPT_DIR"
@@ -58,11 +78,31 @@ mkdir -p "$STAGING_DIR"
 
 cp -f "$SCRIPT_DIR/run.sh" "$STAGING_DIR/run.sh"
 cp -f "$CHECK_SCRIPT" "$STAGING_DIR/check.sh"
+cp -f "$CHECK_UPGRADE_SCRIPT" "$STAGING_DIR/check-upgrade.sh"
+cp -f "$PPA_UPDATE_SCRIPT" "$STAGING_DIR/update_local_ppa_from_dir.sh"
+cp -a "$HWE_11_2_DIR" "$STAGING_DIR/hwe-11.2"
 chmod +x "$STAGING_DIR/run.sh"
 chmod +x "$STAGING_DIR/check.sh"
+chmod +x "$STAGING_DIR/check-upgrade.sh"
+chmod +x "$STAGING_DIR/update_local_ppa_from_dir.sh"
 
 if [ ! -f "$STAGING_DIR/check.sh" ]; then
   echo "Error: failed to stage check.sh in $STAGING_DIR"
+  exit 1
+fi
+
+if [ ! -f "$STAGING_DIR/check-upgrade.sh" ]; then
+  echo "Error: failed to stage check-upgrade.sh in $STAGING_DIR"
+  exit 1
+fi
+
+if [ ! -f "$STAGING_DIR/update_local_ppa_from_dir.sh" ]; then
+  echo "Error: failed to stage update_local_ppa_from_dir.sh in $STAGING_DIR"
+  exit 1
+fi
+
+if [ ! -d "$STAGING_DIR/hwe-11.2" ]; then
+  echo "Error: failed to stage hwe-11.2 in $STAGING_DIR"
   exit 1
 fi
 
