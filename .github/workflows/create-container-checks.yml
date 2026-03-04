@@ -39,14 +39,14 @@ jobs:
           for script in scripts/check*.sh; do
             [ -f "$script" ] || continue
             log_name="$(basename "${script%.sh}").log"
-            if docker cp "$CONTAINER_NAME:/$log_name" "artifacts/check-logs/$log_name"; then
+            if docker cp "$CONTAINER_NAME:/workspace/$log_name" "artifacts/check-logs/$log_name"; then
               echo "Collected $log_name"
               found=1
             fi
           done
 
           if [ "$found" -eq 0 ]; then
-            echo "No check*.log files found in container root."
+            echo "No check*.log files found in container workspace folder."
           fi
 
       - name: Upload check logs artifact
