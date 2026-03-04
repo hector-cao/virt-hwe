@@ -9,7 +9,7 @@ Recommends: systemd
 Breaks: qemu-user-static
 Replaces: qemu-user-static (<< 1:9.1.0), qemu-user-binfmt-hwe
 Provides: qemu-user-static, virt
-Conflicts: qemu-user-binfmt-hwe, virt-hwe
+Conflicts: virt-hwe
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign

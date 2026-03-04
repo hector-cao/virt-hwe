@@ -8,7 +8,7 @@ Depends: libblkio1 (>= 1.4.0), libc6 (>= 2.4), libgfapi0 (>= 11.2), qemu-system-
 Enhances: qemu-system-arm, qemu-system-mips, qemu-system-misc, qemu-system-ppc, qemu-system-riscv, qemu-system-s390x, qemu-system-sparc, qemu-system-x86, qemu-utils
 Breaks: qemu-block-extra (<< 1:8.2.0+ds-4ubuntu2~)
 Replaces: qemu-block-extra (<< 1:8.2.0+ds-4ubuntu2~), qemu-block-supplemental-hwe
-Conflicts: qemu-block-supplemental-hwe, virt-hwe
+Conflicts: virt-hwe
 Provides: virt
 Section: otherosfs
 Priority: optional
