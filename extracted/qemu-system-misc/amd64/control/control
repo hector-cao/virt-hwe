@@ -10,7 +10,7 @@ Suggests: samba, vde2, passt
 Breaks: qemu-system-data (<< 1:10.1.0~rc2+ds-1)
 Provides: qemu-system-alpha (= 1:10.2.1+ds-1ubuntu1), qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-avr (= 1:10.2.1+ds-1ubuntu1), qemu-system-hppa (= 1:10.2.1+ds-1ubuntu1), qemu-system-loong64 (= 1:10.2.1+ds-1ubuntu1), qemu-system-loongarch64 (= 1:10.2.1+ds-1ubuntu1), qemu-system-m68k (= 1:10.2.1+ds-1ubuntu1), qemu-system-microblaze (= 1:10.2.1+ds-1ubuntu1), qemu-system-microblazeel (= 1:10.2.1+ds-1ubuntu1), qemu-system-or1k (= 1:10.2.1+ds-1ubuntu1), qemu-system-rx (= 1:10.2.1+ds-1ubuntu1), qemu-system-sh4 (= 1:10.2.1+ds-1ubuntu1), qemu-system-sh4eb (= 1:10.2.1+ds-1ubuntu1), qemu-system-tricore (= 1:10.2.1+ds-1ubuntu1), qemu-system-xtensa (= 1:10.2.1+ds-1ubuntu1), qemu-system-xtensaeb (= 1:10.2.1+ds-1ubuntu1), virt
 Conflicts: virt-hwe
-Replaces: qemu-system-misc-hwe
+Replaces: qemu-system-misc
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign

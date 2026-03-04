@@ -8,7 +8,7 @@ Depends: libaio1t64 (>= 0.3.93), libbpf1 (>= 1:0.0.8), libc6 (>= 2.42), libfdt1 
 Recommends: qemu-utils, ipxe-qemu, qemu-efi-riscv64, qemu-system-gui (= 1:10.2.1+ds-1ubuntu1), qemu-system-modules-spice (= 1:10.2.1+ds-1ubuntu1), qemu-system-modules-opengl (= 1:10.2.1+ds-1ubuntu1), qemu-block-extra (= 1:10.2.1+ds-1ubuntu1)
 Suggests: samba, vde2, passt
 Breaks: qemu-system-data (<< 1:9.1.0+ds-4~), qemu-system-misc (<< 1:9.1.0+ds-9~)
-Replaces: qemu-system-data (<< 1:9.1.0+ds-4~), qemu-system-misc (<< 1:9.1.0+ds-9~), qemu-system-riscv-hwe
+Replaces: qemu-system-data (<< 1:9.1.0+ds-4~), qemu-system-misc (<< 1:9.1.0+ds-9~), qemu-system-riscv
 Provides: qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-riscv32 (= 1:10.2.1+ds-1ubuntu1), qemu-system-riscv64 (= 1:10.2.1+ds-1ubuntu1), virt
 Conflicts: virt-hwe
 Section: otherosfs

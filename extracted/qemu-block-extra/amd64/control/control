@@ -7,7 +7,7 @@ Installed-Size: 324
 Depends: libbz2-1.0, libc6 (>= 2.14), libcurl3t64-gnutls (>= 7.16.3), libiscsi7 (>= 1.18.0), libnfs14 (>= 4.0.0), librados2 (>= 0.72.2), librbd1 (>= 19.2.3-0ubuntu4), libssh-4 (>= 0.8.4), qemu-system-common (= 1:10.2.1+ds-1ubuntu1) | qemu-utils (= 1:10.2.1+ds-1ubuntu1)
 Enhances: qemu-system-arm, qemu-system-mips, qemu-system-misc, qemu-system-ppc, qemu-system-riscv, qemu-system-s390x, qemu-system-sparc, qemu-system-x86, qemu-utils
 Conflicts: virt-hwe
-Replaces: qemu-block-extra-hwe
+Replaces: qemu-block-extra
 Provides: virt
 Section: otherosfs
 Priority: optional
