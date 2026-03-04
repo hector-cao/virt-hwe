@@ -42,3 +42,6 @@ if [ "$#" -gt 0 ] && [ "$1" != "build" ]; then
 fi
 
 publish_local_ppa "$LOCAL_PPA_DIR"
+
+#cp scripts/99-ubuntu-virt.conf /etc/apt/apt.conf.d/
+cp scripts/apt_hook_ubuntu_virt.sh /usr/local/sbin/
