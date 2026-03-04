@@ -11,6 +11,7 @@ PACK_HWE_SCRIPT="$SCRIPT_DIR/pack_hwe_11_2.sh"
 ENTRYPOINT_SCRIPT="$SCRIPTS_DIR/entrypoint.sh"
 HWE_11_2_DIR="$SCRIPT_DIR/hwe-11.2"
 DEB_ARCH_REGEX="${DEB_ARCH_REGEX:-amd64|all}"
+HOST_LOGS_DIR="${HOST_LOGS_DIR:-$PWD/logs}"
 STAGING_DIR="${STAGING_DIR:-}"
 AUTO_STAGING_DIR=0
 
@@ -82,6 +83,7 @@ fi
 rm -rf "$STAGING_DIR"
 mkdir -p "$STAGING_DIR"
 mkdir -p "$STAGING_DIR/scripts"
+mkdir -p "$HOST_LOGS_DIR"
 
 cp -a "$SCRIPTS_DIR/." "$STAGING_DIR/scripts/"
 cp -a "$HWE_11_2_DIR" "$STAGING_DIR/hwe-11.2"
@@ -94,6 +96,11 @@ fi
 
 if [ ! -d "$STAGING_DIR/hwe-11.2" ]; then
   echo "Error: failed to stage hwe-11.2 in $STAGING_DIR"
+  exit 1
+fi
+
+if [ ! -d "$HOST_LOGS_DIR" ]; then
+  echo "Error: failed to create host logs directory: $HOST_LOGS_DIR"
   exit 1
 fi
 
@@ -116,6 +123,7 @@ if docker container inspect "$CONTAINER_NAME" >/dev/null 2>&1; then
 fi
 
 echo "Starting container '$CONTAINER_NAME' with /workspace mounted from $STAGING_DIR..."
+echo "Host logs directory mounted to /workspace/logs: $HOST_LOGS_DIR"
 
 if [ -t 0 ] && [ -t 1 ]; then
   if [ "$#" -gt 0 ]; then
@@ -123,6 +131,7 @@ if [ -t 0 ] && [ -t 1 ]; then
       --name "$CONTAINER_NAME" \
       --entrypoint /workspace/scripts/entrypoint.sh \
       -v "$STAGING_DIR:/workspace" \
+      -v "$HOST_LOGS_DIR:/workspace/logs" \
       "$IMAGE_NAME" \
       "$@"
   else
@@ -130,6 +139,7 @@ if [ -t 0 ] && [ -t 1 ]; then
       --name "$CONTAINER_NAME" \
       --entrypoint /workspace/scripts/entrypoint.sh \
       -v "$STAGING_DIR:/workspace" \
+      -v "$HOST_LOGS_DIR:/workspace/logs" \
       "$IMAGE_NAME"
   fi
 else
@@ -138,6 +148,7 @@ else
       --name "$CONTAINER_NAME" \
       --entrypoint /workspace/scripts/entrypoint.sh \
       -v "$STAGING_DIR:/workspace" \
+      -v "$HOST_LOGS_DIR:/workspace/logs" \
       "$IMAGE_NAME" \
       "$@"
   else
@@ -145,6 +156,7 @@ else
       --name "$CONTAINER_NAME" \
       --entrypoint /workspace/scripts/entrypoint.sh \
       -v "$STAGING_DIR:/workspace" \
+      -v "$HOST_LOGS_DIR:/workspace/logs" \
       "$IMAGE_NAME"
   fi
 fi

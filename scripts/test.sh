@@ -2,6 +2,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOGS_DIR="${LOGS_DIR:-/workspace/logs}"
+
+mkdir -p "$LOGS_DIR"
 
 mapfile -t check_scripts < <(
   find "$SCRIPT_DIR" -maxdepth 1 -type f -name 'check*.sh' \
@@ -23,7 +26,10 @@ done
 for script_name in "${check_scripts[@]}"; do
   echo
   echo "=== Running $script_name ==="
-  bash "$SCRIPT_DIR/$script_name"
+
+  log_file="$LOGS_DIR/${script_name%.sh}.log"
+
+  LOG_FILE="$log_file" bash "$SCRIPT_DIR/$script_name"
 done
 
 echo

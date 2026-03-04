@@ -22,37 +22,10 @@ jobs:
       - name: Run create-container checks
         run: ./create_container.sh
 
-      - name: Collect check logs from container
-        if: always()
-        env:
-          CONTAINER_NAME: ubuntu-devel-qemu
-        run: |
-          set -euo pipefail
-          mkdir -p artifacts/check-logs
-
-          if ! docker container inspect "$CONTAINER_NAME" >/dev/null 2>&1; then
-            echo "Container '$CONTAINER_NAME' not found; no logs to collect."
-            exit 0
-          fi
-
-          found=0
-          for script in scripts/check*.sh; do
-            [ -f "$script" ] || continue
-            log_name="$(basename "${script%.sh}").log"
-            if docker cp "$CONTAINER_NAME:/workspace/$log_name" "artifacts/check-logs/$log_name"; then
-              echo "Collected $log_name"
-              found=1
-            fi
-          done
-
-          if [ "$found" -eq 0 ]; then
-            echo "No check*.log files found in container workspace folder."
-          fi
-
       - name: Upload check logs artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: check-logs
-          path: artifacts/check-logs/check*.log
+          path: logs/*.log
           if-no-files-found: warn
