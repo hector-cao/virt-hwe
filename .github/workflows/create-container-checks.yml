@@ -1,0 +1,23 @@
+name: test-hwe-stack
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  create-container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure create-container is executable
+        run: chmod +x ./create_container.sh
+
+      - name: Run create-container checks
+        run: ./create_container.sh
