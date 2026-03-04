@@ -5,7 +5,7 @@ export DEBIAN_FRONTEND=noninteractive
 LOG_FILE="${LOG_FILE:-check-upgrade.log}"
 UPGRADE_SOURCE_DIR="${UPGRADE_SOURCE_DIR:-/workspace/hwe-11.2}"
 WORKSPACE_ROOT_DIR="${WORKSPACE_ROOT_DIR:-/workspace}"
-PPA_UPDATE_SCRIPT="${PPA_UPDATE_SCRIPT:-/workspace/update_local_ppa_from_dir.sh}"
+PPA_UPDATE_SCRIPT="${PPA_UPDATE_SCRIPT:-/workspace/scripts/update_local_ppa_from_dir.sh}"
 UPGRADE_VERSION="${UPGRADE_VERSION:-11.2.1+ds-0ubuntu1}"
 UPGRADE_ANCHOR_PACKAGE="${UPGRADE_ANCHOR_PACKAGE:-qemu-system-x86-hwe}"
 SWITCH_BACK_PACKAGE="${SWITCH_BACK_PACKAGE:-}"
@@ -54,7 +54,7 @@ Environment variables:
   LOG_FILE                 Log file path (default: check-upgrade.log)
   UPGRADE_SOURCE_DIR       Folder with upgraded -hwe debs (default: /workspace/hwe-11.2)
   WORKSPACE_ROOT_DIR       Workspace root where debs are staged/scanned (default: /workspace)
-  PPA_UPDATE_SCRIPT        PPA update helper script (default: /workspace/update_local_ppa_from_dir.sh)
+  PPA_UPDATE_SCRIPT        PPA update helper script (default: /workspace/scripts/update_local_ppa_from_dir.sh)
   UPGRADE_VERSION          Target version without epoch (default: 11.2.1+ds-0ubuntu1)
   UPGRADE_ANCHOR_PACKAGE   Initial -hwe package to install (default: qemu-system-x86-hwe)
   SWITCH_BACK_PACKAGE      Base package to install for switch-back stage (default: random from list)

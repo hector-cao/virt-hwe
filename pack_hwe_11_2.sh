@@ -89,6 +89,7 @@ echo "Renaming and moving packed -hwe debs to $OUTPUT_DIR"
 python3 - "$EXTRACT_DIR" "$WORK_DIR" "$OUTPUT_DIR" "$SOURCE_VERSION" <<'PY'
 import pathlib
 import re
+import shutil
 import sys
 
 extract_dir = pathlib.Path(sys.argv[1])
@@ -116,11 +117,22 @@ for control_file in sorted(extract_dir.glob("*-hwe/*/control/control")):
     dst = output_dir / f"{package}_{deb_version}_{arch}.deb"
 
     if src.exists() and src != dst:
-        if dst.exists():
-            dst.unlink()
-        src.rename(dst)
-        updated += 1
-        print(f"Renamed: {src.name} -> {dst.name}")
+      staging_copy = output_dir / src.name
+
+      if src != staging_copy:
+        shutil.copy2(src, staging_copy)
+      else:
+        staging_copy = output_dir / f".{src.name}.copy"
+        if staging_copy.exists():
+          staging_copy.unlink()
+        shutil.copy2(src, staging_copy)
+
+      if dst.exists():
+        dst.unlink()
+
+      staging_copy.rename(dst)
+      updated += 1
+      print(f"Copied+renamed: {src.name} -> {dst.name}")
 
 print(f"Renamed files: {updated}")
 PY
