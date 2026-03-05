@@ -3,7 +3,7 @@ set -euo pipefail
 
 BASE_URL="${BASE_URL:-https://launchpad.net/ubuntu/+archive/primary/+files}"
 OUTPUT_DIR="${OUTPUT_DIR:-$(pwd)}"
-VERSION="${VERSION:-}"
+VERSION="${VERSION:-12.0.0-1ubuntu3}"
 EXTRACT_BASE_DIR="${EXTRACT_BASE_DIR:-}"
 
 PACKAGES=(
@@ -45,7 +45,7 @@ Options:
   --output-dir DIR   Destination directory (default: current directory)
   --extract-dir DIR  Base extraction directory (default: OUTPUT_DIR/extracted)
   --base-url URL     Launchpad files URL prefix (default: $BASE_URL)
-  --version VER      Package version filter (required if VERSION env is unset)
+  --version VER      Package version filter (default: $VERSION)
   --unpack           Extract control.tar.zst and unpack its contents
   --pack             Rebuild .deb from modified control/ folders (also *-hwe)
   -h, --help         Show this help
@@ -95,11 +95,6 @@ while [ "$#" -gt 0 ]; do
       ;;
   esac
 done
-
-if [ -z "$VERSION" ]; then
-  echo "Error: version is required. Set VERSION or pass --version." >&2
-  exit 1
-fi
 
 if ! command -v curl >/dev/null 2>&1; then
   echo "Error: curl is required." >&2

@@ -8,7 +8,7 @@ GENERATE_HWE_SCRIPT="$SCRIPT_DIR/generate_hwe_11_2_controls.sh"
 PACK_HWE_SCRIPT="$SCRIPT_DIR/pack_hwe_11_2.sh"
 EXTRACTED_DIR="$SCRIPT_DIR/extracted"
 HWE_11_2_DIR="$SCRIPT_DIR/hwe-11.2"
-LIBVIRT_VERSION="${LIBVIRT_VERSION:-}"
+LIBVIRT_VERSION="12.0.0-1ubuntu3"
 
 usage() {
   cat <<EOF
@@ -22,10 +22,6 @@ Prepare all debs needed by create_container.sh:
 
 Options:
   -h, --help     Show this help
-
-Environment variables:
-  LIBVIRT_VERSION   When set, also unpack libvirt control files into extracted/
-                    and create matching -hwe folders.
 EOF
 }
 
@@ -79,17 +75,16 @@ echo "Pulling missing .deb files with: $(basename "$PULL_SCRIPT")"
 echo "Packing base+hwe .deb files with: $(basename "$PULL_SCRIPT") --pack --extract-dir '$EXTRACTED_DIR'"
 "$PULL_SCRIPT" --pack --output-dir "$SCRIPT_DIR" --extract-dir "$EXTRACTED_DIR"
 
-if [ -n "$LIBVIRT_VERSION" ]; then
-  if [ ! -f "$PULL_LIBVIRT_SCRIPT" ]; then
-    echo "Error: $PULL_LIBVIRT_SCRIPT not found (required when LIBVIRT_VERSION is set)." >&2
-    exit 1
-  fi
-
-  echo "Pulling+unpacking libvirt controls with: $(basename "$PULL_LIBVIRT_SCRIPT") --version '$LIBVIRT_VERSION' --unpack"
-  "$PULL_LIBVIRT_SCRIPT" --version "$LIBVIRT_VERSION" --output-dir "$SCRIPT_DIR" --extract-dir "$EXTRACTED_DIR" --unpack
-else
-  echo "Skipping libvirt extraction (set LIBVIRT_VERSION to enable)."
+if [ ! -f "$PULL_LIBVIRT_SCRIPT" ]; then
+  echo "Error: $PULL_LIBVIRT_SCRIPT not found." >&2
+  exit 1
 fi
+
+echo "Pulling+unpacking libvirt controls with: $(basename "$PULL_LIBVIRT_SCRIPT") --version '$LIBVIRT_VERSION'"
+"$PULL_LIBVIRT_SCRIPT" --version "$LIBVIRT_VERSION" --output-dir "$SCRIPT_DIR"
+
+echo "Packing libvirt base+hwe .deb files with: $(basename "$PULL_LIBVIRT_SCRIPT") --version '$LIBVIRT_VERSION' --pack --extract-dir '$EXTRACTED_DIR'"
+"$PULL_LIBVIRT_SCRIPT" --version "$LIBVIRT_VERSION" --pack --output-dir "$SCRIPT_DIR" --extract-dir "$EXTRACTED_DIR"
 
 echo "Generating -hwe control folders with: $(basename "$GENERATE_HWE_SCRIPT") --clean-dst"
 "$GENERATE_HWE_SCRIPT" --clean-dst
