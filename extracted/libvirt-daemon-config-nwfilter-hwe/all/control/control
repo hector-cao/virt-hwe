@@ -1,4 +1,4 @@
-Package: libvirt-daemon-config-nwfilter
+Package: libvirt-daemon-config-nwfilter-hwe
 Source: libvirt
 Version: 12.0.0-1ubuntu3
 Architecture: all

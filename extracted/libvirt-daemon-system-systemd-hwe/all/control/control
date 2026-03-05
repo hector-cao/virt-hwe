@@ -1,4 +1,4 @@
-Package: libvirt-daemon-system-systemd
+Package: libvirt-daemon-system-systemd-hwe
 Source: libvirt
 Version: 12.0.0-1ubuntu3
 Architecture: all

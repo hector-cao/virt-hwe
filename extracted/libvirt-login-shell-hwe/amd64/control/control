@@ -1,4 +1,4 @@
-Package: libvirt-login-shell
+Package: libvirt-login-shell-hwe
 Source: libvirt
 Version: 12.0.0-1ubuntu3
 Architecture: amd64

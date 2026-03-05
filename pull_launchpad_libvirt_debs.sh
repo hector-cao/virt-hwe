@@ -153,6 +153,7 @@ extract_deb() {
   local target_dir="$EXTRACT_BASE_DIR/$package_name/$arch_name"
   local hwe_target_dir="$EXTRACT_BASE_DIR/${package_name}-hwe/$arch_name"
   local control_dir="$target_dir/control"
+  local hwe_control_file="$hwe_target_dir/control/control"
   local members
 
   rm -rf "$target_dir"
@@ -173,6 +174,10 @@ extract_deb() {
   rm -rf "$hwe_target_dir"
   mkdir -p "$hwe_target_dir"
   cp -a "$target_dir/." "$hwe_target_dir/"
+
+  if [ -f "$hwe_control_file" ]; then
+    sed -i -E "s/^Package:[[:space:]]+.*/Package: ${package_name}-hwe/" "$hwe_control_file"
+  fi
 
   echo "Unpacked control contents: $control_dir"
   echo "Duplicated package folder: $hwe_target_dir"

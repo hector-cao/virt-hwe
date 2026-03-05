@@ -1,4 +1,4 @@
-Package: libvirt-daemon-config-network
+Package: libvirt-daemon-config-network-hwe
 Source: libvirt
 Version: 12.0.0-1ubuntu3
 Architecture: all

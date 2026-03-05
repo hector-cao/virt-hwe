@@ -1,4 +1,4 @@
-Package: libvirt-daemon-driver-storage-iscsi
+Package: libvirt-daemon-driver-storage-iscsi-hwe
 Source: libvirt
 Version: 12.0.0-1ubuntu3
 Architecture: amd64
