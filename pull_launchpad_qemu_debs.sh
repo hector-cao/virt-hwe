@@ -5,6 +5,7 @@ BASE_URL="${BASE_URL:-https://launchpad.net/ubuntu/+archive/primary/+files}"
 OUTPUT_DIR="${OUTPUT_DIR:-$(pwd)}"
 VERSION="${VERSION:-10.2.1+ds-1ubuntu1}"
 EXTRACT_BASE_DIR="${EXTRACT_BASE_DIR:-}"
+SOURCE_DEB_DIR="${SOURCE_DEB_DIR:-}"
 
 PACKAGES=(
   qemu-block-extra
@@ -33,7 +34,7 @@ PACKAGES=(
 
 usage() {
   cat <<EOF
-Usage: $(basename "$0") [--output-dir DIR] [--extract-dir DIR] [--base-url URL] [--version VER] [--arch REGEX] [--unpack] [--pack]
+Usage: $(basename "$0") [--output-dir DIR] [--extract-dir DIR] [--base-url URL] [--version VER] [--unpack] [--pack]
 
 Downloads Debian binary packages from Launchpad's Primary archive files page,
 filtering to a fixed list of QEMU package names.
@@ -43,18 +44,15 @@ Options:
   --extract-dir DIR  Base extraction directory (default: OUTPUT_DIR/extracted)
   --base-url URL     Launchpad files URL prefix (default: $BASE_URL)
   --version VER      Package version filter (default: $VERSION)
-  --arch REGEX       Optional architecture filter on file suffix
-                     (examples: 'amd64|all', 'arm64', 'all')
   --unpack           Extract control.tar.zst and unpack its contents
   --pack             Rebuild .deb from modified control/ folders (also *-hwe)
   -h, --help         Show this help
 
 Environment variables:
-  OUTPUT_DIR, EXTRACT_BASE_DIR, BASE_URL, VERSION
+  OUTPUT_DIR, EXTRACT_BASE_DIR, SOURCE_DEB_DIR, BASE_URL, VERSION
 EOF
 }
 
-ARCH_REGEX=""
 UNPACK=0
 PACK=0
 
@@ -74,10 +72,6 @@ while [ "$#" -gt 0 ]; do
       ;;
     --version)
       VERSION="$2"
-      shift 2
-      ;;
-    --arch)
-      ARCH_REGEX="$2"
       shift 2
       ;;
     --unpack)
@@ -100,11 +94,16 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
-sudo apt install curl
-
 if ! command -v curl >/dev/null 2>&1; then
-  echo "Error: curl is required." >&2
-  exit 1
+  if command -v apt-get >/dev/null 2>&1; then
+    sudo apt-get update -y
+    sudo apt-get install -y curl
+  fi
+
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "Error: curl is required." >&2
+    exit 1
+  fi
 fi
 
 if [ "$UNPACK" -eq 1 ]; then
@@ -151,34 +150,16 @@ if [ "$UNPACK" -eq 1 ] || [ "$PACK" -eq 1 ]; then
   mkdir -p "$EXTRACT_BASE_DIR"
 fi
 
+if [ -z "$SOURCE_DEB_DIR" ]; then
+  SOURCE_DEB_DIR="$OUTPUT_DIR"
+fi
+
 BASE_URL="${BASE_URL%/}"
 
 KNOWN_ARCHES=(
   amd64
   all
-  arm64
-  armhf
-  i386
-  ppc64el
-  riscv64
-  s390x
 )
-
-SELECTED_ARCHES=()
-if [ -n "$ARCH_REGEX" ]; then
-  for arch in "${KNOWN_ARCHES[@]}"; do
-    if [[ "$arch" =~ ^(${ARCH_REGEX})$ ]]; then
-      SELECTED_ARCHES+=("$arch")
-    fi
-  done
-else
-  SELECTED_ARCHES=(amd64 all)
-fi
-
-if [ "${#SELECTED_ARCHES[@]}" -eq 0 ]; then
-  echo "No architectures selected by --arch '$ARCH_REGEX'." >&2
-  exit 1
-fi
 
 downloaded=0
 skipped=0
@@ -229,7 +210,7 @@ resolve_source_deb() {
   local candidate_deb=""
 
   for candidate in "$package_name" "${package_name%-hwe}"; do
-    candidate_deb="$OUTPUT_DIR/${candidate}_${VERSION}_${arch_name}.deb"
+    candidate_deb="$SOURCE_DEB_DIR/${candidate}_${VERSION}_${arch_name}.deb"
     if [ -f "$candidate_deb" ]; then
       printf '%s\n' "$candidate_deb"
       return 0
@@ -246,11 +227,23 @@ pack_deb() {
   local source_deb=""
   local tmpdir=""
   local data_member=""
-  local out_deb="$OUTPUT_DIR/${package_name}_${VERSION}_${arch_name}.deb"
+  local out_version="$VERSION"
+  local control_file="$control_dir/control"
+  local control_version=""
+  local out_deb=""
 
   if [ ! -d "$control_dir" ]; then
     return 0
   fi
+
+  if [ -f "$control_file" ]; then
+    control_version="$(grep -E '^Version:' "$control_file" | head -n1 | cut -d: -f2- | xargs || true)"
+    if [ -n "$control_version" ]; then
+      out_version="${control_version#*:}"
+    fi
+  fi
+
+  out_deb="$OUTPUT_DIR/${package_name}_${out_version}_${arch_name}.deb"
 
   if ! source_deb="$(resolve_source_deb "$package_name" "$arch_name")"; then
     echo "Skipping pack for $package_name/$arch_name (source deb not found)"
@@ -295,7 +288,7 @@ run_pack() {
     [ -d "$package_dir" ] || continue
     package_name="$(basename "$package_dir")"
 
-    for arch_name in "${SELECTED_ARCHES[@]}"; do
+    for arch_name in "${KNOWN_ARCHES[@]}"; do
       pack_deb "$package_name" "$arch_name"
     done
   done
@@ -305,25 +298,26 @@ if [ "$PACK" -eq 0 ] || [ "$UNPACK" -eq 1 ]; then
   for package in "${PACKAGES[@]}"; do
     found_for_package=0
 
-    for arch in "${SELECTED_ARCHES[@]}"; do
+    for arch in "${KNOWN_ARCHES[@]}"; do
       deb="${package}_${VERSION}_${arch}.deb"
       url="${BASE_URL}/${deb}"
       dest="$OUTPUT_DIR/$deb"
+
+      if [ -f "$dest" ]; then
+        echo "Skipping existing: $deb"
+        skipped=$((skipped + 1))
+        found_for_package=1
+        if [ "$UNPACK" -eq 1 ]; then
+          extract_deb "$dest" "$package" "$arch"
+        fi
+        continue
+      fi
 
       if ! curl -fsSLI "$url" >/dev/null 2>&1; then
         continue
       fi
 
       found_for_package=1
-
-      if [ -f "$dest" ]; then
-        echo "Skipping existing: $deb"
-        skipped=$((skipped + 1))
-        if [ "$UNPACK" -eq 1 ]; then
-          extract_deb "$dest" "$package" "$arch"
-        fi
-        continue
-      fi
 
       echo "Downloading: $deb"
       curl -fL --retry 3 --retry-delay 1 -o "$dest" "$url"

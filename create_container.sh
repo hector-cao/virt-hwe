@@ -5,12 +5,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPTS_DIR="$SCRIPT_DIR/scripts"
 IMAGE_NAME="${IMAGE_NAME:-ubuntu-devel-run}"
 CONTAINER_NAME="${CONTAINER_NAME:-ubuntu-devel-qemu}"
-PULL_SCRIPT="$SCRIPT_DIR/pull_launchpad_qemu_debs.sh"
-GENERATE_HWE_SCRIPT="$SCRIPT_DIR/generate_hwe_11_2_controls.sh"
-PACK_HWE_SCRIPT="$SCRIPT_DIR/pack_hwe_11_2.sh"
+PREPARE_DEBS_SCRIPT="$SCRIPT_DIR/prepare_debs.sh"
 ENTRYPOINT_SCRIPT="$SCRIPTS_DIR/entrypoint.sh"
 HWE_11_2_DIR="$SCRIPT_DIR/hwe-11.2"
-DEB_ARCH_REGEX="${DEB_ARCH_REGEX:-amd64|all}"
 HOST_LOGS_DIR="${HOST_LOGS_DIR:-$PWD/logs}"
 STAGING_DIR="${STAGING_DIR:-}"
 AUTO_STAGING_DIR=0
@@ -33,18 +30,8 @@ if [ ! -f "$ENTRYPOINT_SCRIPT" ]; then
   exit 1
 fi
 
-if [ ! -f "$PULL_SCRIPT" ]; then
-  echo "Error: $PULL_SCRIPT not found."
-  exit 1
-fi
-
-if [ ! -f "$GENERATE_HWE_SCRIPT" ]; then
-  echo "Error: $GENERATE_HWE_SCRIPT not found."
-  exit 1
-fi
-
-if [ ! -f "$PACK_HWE_SCRIPT" ]; then
-  echo "Error: $PACK_HWE_SCRIPT not found."
+if [ ! -f "$PREPARE_DEBS_SCRIPT" ]; then
+  echo "Error: $PREPARE_DEBS_SCRIPT not found."
   exit 1
 fi
 
@@ -54,21 +41,10 @@ if [ ! -d "$HWE_11_2_DIR" ]; then
 fi
 
 find "$SCRIPTS_DIR" -maxdepth 1 -type f -name '*.sh' -exec chmod +x {} +
-chmod +x "$PULL_SCRIPT"
-chmod +x "$GENERATE_HWE_SCRIPT"
-chmod +x "$PACK_HWE_SCRIPT"
+chmod +x "$PREPARE_DEBS_SCRIPT"
 
-echo "Pulling missing .deb files with: $(basename "$PULL_SCRIPT") --arch '$DEB_ARCH_REGEX'"
-"$PULL_SCRIPT" --arch "$DEB_ARCH_REGEX" --output-dir "$SCRIPT_DIR"
-
-echo "Generating -hwe control folders with: $(basename "$GENERATE_HWE_SCRIPT") --clean-dst"
-"$GENERATE_HWE_SCRIPT" --clean-dst
-
-echo "Packing -hwe .deb files with: $(basename "$PULL_SCRIPT") --pack --arch '$DEB_ARCH_REGEX' --extract-dir '$HWE_11_2_DIR'"
-"$PULL_SCRIPT" --pack --arch "$DEB_ARCH_REGEX" --output-dir "$SCRIPT_DIR" --extract-dir "$HWE_11_2_DIR"
-
-echo "Packing -hwe .deb files with: $(basename "$PACK_HWE_SCRIPT") --arch '$DEB_ARCH_REGEX' --output-dir '$HWE_11_2_DIR'"
-"$PACK_HWE_SCRIPT" --arch "$DEB_ARCH_REGEX" --output-dir "$HWE_11_2_DIR"
+echo "Preparing deb files with: $(basename "$PREPARE_DEBS_SCRIPT")"
+"$PREPARE_DEBS_SCRIPT"
 
 if [ "$STAGING_DIR" = "/" ]; then
   echo "Error: STAGING_DIR cannot be /."

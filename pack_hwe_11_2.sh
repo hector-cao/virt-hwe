@@ -7,11 +7,10 @@ EXTRACT_DIR="${EXTRACT_DIR:-$SCRIPT_DIR/hwe-11.2}"
 OUTPUT_DIR="${OUTPUT_DIR:-$SCRIPT_DIR/hwe-11.2}"
 WORK_DIR="${WORK_DIR:-$SCRIPT_DIR}"
 SOURCE_VERSION="${SOURCE_VERSION:-10.2.1+ds-1ubuntu1}"
-ARCH_REGEX="${ARCH_REGEX:-amd64|all}"
 
 usage() {
   cat <<EOF
-Usage: $(basename "$0") [--extract-dir DIR] [--output-dir DIR] [--source-version VER] [--arch REGEX]
+Usage: $(basename "$0") [--extract-dir DIR] [--output-dir DIR] [--source-version VER]
 
 Pack -hwe packages from hwe-11.2 control trees and emit deb files named with
 that copied control Version (e.g. 11.2.1+ds-0ubuntu1).
@@ -23,11 +22,10 @@ Options:
                        (default: workspace root)
   --source-version VER Source .deb version used to read data.tar/debian-binary
                        (default: 10.2.1+ds-1ubuntu1)
-  --arch REGEX         Architecture filter regex (default: amd64|all)
   -h, --help           Show this help
 
 Environment variables:
-  EXTRACT_DIR, OUTPUT_DIR, WORK_DIR, SOURCE_VERSION, ARCH_REGEX
+  EXTRACT_DIR, OUTPUT_DIR, WORK_DIR, SOURCE_VERSION
 EOF
 }
 
@@ -47,10 +45,6 @@ while [ "$#" -gt 0 ]; do
       ;;
     --source-version)
       SOURCE_VERSION="$2"
-      shift 2
-      ;;
-    --arch)
-      ARCH_REGEX="$2"
       shift 2
       ;;
     -h|--help)
@@ -82,59 +76,7 @@ fi
 
 mkdir -p "$OUTPUT_DIR"
 
-echo "Packing from $EXTRACT_DIR using source version $SOURCE_VERSION (work dir: $WORK_DIR)"
-VERSION="$SOURCE_VERSION" "$PULL_SCRIPT" --pack --arch "$ARCH_REGEX" --output-dir "$WORK_DIR" --extract-dir "$EXTRACT_DIR"
-
-echo "Renaming and moving packed -hwe debs to $OUTPUT_DIR"
-python3 - "$EXTRACT_DIR" "$WORK_DIR" "$OUTPUT_DIR" "$SOURCE_VERSION" <<'PY'
-import pathlib
-import re
-import shutil
-import sys
-
-extract_dir = pathlib.Path(sys.argv[1])
-work_dir = pathlib.Path(sys.argv[2])
-output_dir = pathlib.Path(sys.argv[3])
-source_version = sys.argv[4]
-
-updated = 0
-output_dir.mkdir(parents=True, exist_ok=True)
-
-for control_file in sorted(extract_dir.glob("*-hwe/*/control/control")):
-    text = control_file.read_text(encoding="utf-8")
-
-    pkg_match = re.search(r"(?m)^Package:\s*(\S+)\s*$", text)
-    ver_match = re.search(r"(?m)^Version:\s*(\S+)\s*$", text)
-    if not pkg_match or not ver_match:
-        continue
-
-    package = pkg_match.group(1)
-    full_version = ver_match.group(1)
-    deb_version = full_version.split(":", 1)[1] if ":" in full_version else full_version
-
-    arch = control_file.parts[-3]
-    src = work_dir / f"{package}_{source_version}_{arch}.deb"
-    dst = output_dir / f"{package}_{deb_version}_{arch}.deb"
-
-    if src.exists() and src != dst:
-      staging_copy = output_dir / src.name
-
-      if src != staging_copy:
-        shutil.copy2(src, staging_copy)
-      else:
-        staging_copy = output_dir / f".{src.name}.copy"
-        if staging_copy.exists():
-          staging_copy.unlink()
-        shutil.copy2(src, staging_copy)
-
-      if dst.exists():
-        dst.unlink()
-
-      staging_copy.rename(dst)
-      updated += 1
-      print(f"Copied+renamed: {src.name} -> {dst.name}")
-
-print(f"Renamed files: {updated}")
-PY
+echo "Packing from $EXTRACT_DIR using source version $SOURCE_VERSION (source deb dir: $WORK_DIR, output dir: $OUTPUT_DIR)"
+SOURCE_DEB_DIR="$WORK_DIR" VERSION="$SOURCE_VERSION" "$PULL_SCRIPT" --pack --output-dir "$OUTPUT_DIR" --extract-dir "$EXTRACT_DIR"
 
 echo "Done. Packed files are in: $OUTPUT_DIR"
