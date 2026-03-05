@@ -275,8 +275,8 @@ pack_deb() {
 }
 
 run_pack() {
-  local package_dir=""
   local package_name=""
+  local base_package=""
   local arch_name=""
 
   if [ ! -d "$EXTRACT_BASE_DIR" ]; then
@@ -284,12 +284,11 @@ run_pack() {
     return 0
   fi
 
-  for package_dir in "$EXTRACT_BASE_DIR"/*; do
-    [ -d "$package_dir" ] || continue
-    package_name="$(basename "$package_dir")"
-
-    for arch_name in "${KNOWN_ARCHES[@]}"; do
-      pack_deb "$package_name" "$arch_name"
+  for base_package in "${PACKAGES[@]}"; do
+    for package_name in "$base_package" "${base_package}-hwe"; do
+      for arch_name in "${KNOWN_ARCHES[@]}"; do
+        pack_deb "$package_name" "$arch_name"
+      done
     done
   done
 }
