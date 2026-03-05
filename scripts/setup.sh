@@ -15,6 +15,9 @@ publish_local_ppa() {
 		return 0
 	fi
 
+	# clean up any existing debs in local PPA dir to avoid confusion with old packages
+	rm -f "$ppa_dir"/* || true
+
 	mkdir -p "$ppa_dir"
 	chmod 755 /workspace || true
 	chmod 755 "$ppa_dir"
