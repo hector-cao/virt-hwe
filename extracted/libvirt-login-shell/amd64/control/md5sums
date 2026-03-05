@@ -1,0 +1,3 @@
+c034a17078bb3e6fe3749c5b8702737f  usr/bin/virt-login-shell
+42891c677d2763077c5642d2d76210b7  usr/lib/libvirt/virt-login-shell-helper
+f2e7abd095cfe71dc763997d1f49213a  usr/share/man/man1/virt-login-shell.1.gz
