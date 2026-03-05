@@ -9,7 +9,9 @@ Recommends: swtpm, swtpm-tools
 Suggests: numad, passt
 Enhances: qemu-kvm, qemu-system
 Breaks: libvirt-clients (<< 6.9.0-2~), libvirt-daemon-config-network (<< 11.0.0-2ubuntu9~), libvirt-daemon-system (<< 10.6.0-2~)
-Replaces: libvirt-clients (<< 6.9.0-2~), libvirt-daemon-system (<< 10.6.0-2~)
+Replaces: libvirt-clients (<< 6.9.0-2~), libvirt-daemon-system (<< 10.6.0-2~), libvirt-daemon-driver-qemu-hwe, libvirt-daemon-driver-qemu
+Provides: libvirt-daemon-driver-qemu, virt-hwe
+Conflicts: virt
 Section: admin
 Priority: optional
 Homepage: https://libvirt.org/drvqemu.html

@@ -6,7 +6,9 @@ Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 60
 Depends: libvirt-common (= 12.0.0-1ubuntu3), libvirt-daemon-driver-lxc (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3), libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.12.0)
 Breaks: libvirt-clients (<< 6.9.0-2~)
-Replaces: libvirt-clients (<< 6.9.0-2~)
+Replaces: libvirt-clients (<< 6.9.0-2~), libvirt-login-shell-hwe
+Provides: virt, libvirt-login-shell
+Conflicts: virt-hwe
 Section: admin
 Priority: optional
 Homepage: https://libvirt.org/

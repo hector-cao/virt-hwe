@@ -6,7 +6,9 @@ Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 45
 Depends: libvirt-common (<< 12.0.0-1ubuntu3.1~), libvirt-common (>= 12.0.0-1ubuntu3), libvirt-daemon-driver-nwfilter (<< 12.0.0-1ubuntu3.1~), libvirt-daemon-driver-nwfilter (>= 12.0.0-1ubuntu3), libvirt0 (<< 12.0.0-1ubuntu3.1~), libvirt0 (>= 12.0.0-1ubuntu3)
 Breaks: libvirt-daemon-system (<< 6.9.0-2~)
-Replaces: libvirt-daemon-system (<< 6.9.0-2~)
+Replaces: libvirt-daemon-system (<< 6.9.0-2~), libvirt-daemon-config-nwfilter-hwe, libvirt-daemon-config-nwfilter
+Provides: libvirt-daemon-config-nwfilter, virt-hwe
+Conflicts: virt
 Section: admin
 Priority: optional
 Homepage: https://libvirt.org/

@@ -6,7 +6,9 @@ Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 446
 Depends: libvirt-common (= 12.0.0-1ubuntu3), libvirt-daemon (= 12.0.0-1ubuntu3), libvirt-daemon-driver-network (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3), logrotate, systemd-container | sysvinit-core, libblkid1 (>= 2.17.2), libc6 (>= 2.38), libcap-ng0 (>= 0.7.9), libfuse3-4 (>= 3.17.2), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.44.0), libtirpc3t64 (>= 1.0.2)
 Breaks: libvirt-daemon (<< 6.9.0-2~), libvirt-daemon-system (<< 10.6.0-2~)
-Replaces: libvirt-daemon (<< 6.9.0-2~), libvirt-daemon-system (<< 10.6.0-2~)
+Replaces: libvirt-daemon (<< 6.9.0-2~), libvirt-daemon-system (<< 10.6.0-2~), libvirt-daemon-driver-lxc-hwe, libvirt-daemon-driver-lxc
+Provides: libvirt-daemon-driver-lxc, virt-hwe
+Conflicts: virt
 Section: admin
 Priority: optional
 Homepage: https://libvirt.org/drvlxc.html

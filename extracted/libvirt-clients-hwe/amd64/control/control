@@ -7,7 +7,9 @@ Installed-Size: 1155
 Depends: libvirt-common (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3), libxml2-utils, sensible-utils, libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.44.0), libgnutls30t64 (>= 3.7.0), libreadline8t64 (>= 6.0), libxml2-16 (>= 2.14.1)
 Suggests: libvirt-clients-qemu (= 12.0.0-1ubuntu3), libvirt-daemon (= 12.0.0-1ubuntu3), libvirt-login-shell (= 12.0.0-1ubuntu3)
 Breaks: libvirt-daemon (<< 6.9.0-2~), libvirt-daemon-driver-qemu (<< 6.9.0-2~)
-Replaces: libvirt-daemon (<< 6.9.0-2~)
+Replaces: libvirt-daemon (<< 6.9.0-2~), libvirt-clients-hwe, libvirt-clients
+Provides: libvirt-clients, virt-hwe
+Conflicts: virt
 Section: admin
 Priority: optional
 Homepage: https://libvirt.org/
