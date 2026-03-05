@@ -5,6 +5,9 @@ Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 16
 Depends: libvirt-clients (= 12.0.0-1ubuntu3), libvirt-common (= 12.0.0-1ubuntu3), libvirt-daemon (= 12.0.0-1ubuntu3), libvirt-daemon-common (= 12.0.0-1ubuntu3), libvirt-daemon-config-network (= 12.0.0-1ubuntu3), libvirt-daemon-config-nwfilter (= 12.0.0-1ubuntu3), libvirt-daemon-driver-network (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nodedev (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nwfilter (= 12.0.0-1ubuntu3), libvirt-daemon-driver-qemu (= 12.0.0-1ubuntu3), libvirt-daemon-driver-secret (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage (= 12.0.0-1ubuntu3), libvirt-daemon-log (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3)
+Provides: virt
+Conflicts: virt-hwe
+Replaces: libvirt-daemon-system-hwe
 Section: admin
 Priority: optional
 Homepage: https://libvirt.org/

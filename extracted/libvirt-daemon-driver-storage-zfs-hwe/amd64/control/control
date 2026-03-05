@@ -4,8 +4,11 @@ Version: 12.0.0-1ubuntu3
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 37
-Depends: libvirt-common (= 12.0.0-1ubuntu3), libvirt-daemon (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3), libc6 (>= 2.4), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.12.0)
+Depends: libvirt-common-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-hwe (= 12.0.0-1ubuntu3), libvirt0-hwe (= 12.0.0-1ubuntu3), libc6 (>= 2.4), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.12.0)
 Recommends: zfsutils
+Provides: libvirt-daemon-driver-storage-zfs, virt-hwe
+Replaces: libvirt-daemon-driver-storage-zfs
+Conflicts: virt
 Section: admin
 Priority: optional
 Homepage: https://libvirt.org/storage.html#zfs-pool

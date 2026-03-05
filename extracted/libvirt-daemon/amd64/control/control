@@ -7,9 +7,10 @@ Installed-Size: 861
 Depends: libvirt-common (= 12.0.0-1ubuntu3), libvirt-daemon-common (= 12.0.0-1ubuntu3), libvirt-daemon-log (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3), logrotate, libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.26.0), libtirpc3t64 (>= 1.0.2), libxml2-16 (>= 2.14.1)
 Recommends: libvirt-daemon-driver-interface (= 12.0.0-1ubuntu3), libvirt-daemon-driver-network (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nodedev (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nwfilter (= 12.0.0-1ubuntu3), libvirt-daemon-driver-qemu (= 12.0.0-1ubuntu3), libvirt-daemon-driver-secret (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-disk (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-iscsi (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-logical (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-mpath (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-scsi (= 12.0.0-1ubuntu3), libvirt-daemon-lock (= 12.0.0-1ubuntu3), libvirt-daemon-plugin-lockd (= 12.0.0-1ubuntu3)
 Suggests: libvirt-daemon-driver-lxc (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-gluster (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-iscsi-direct (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-rbd (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-zfs (= 12.0.0-1ubuntu3), libvirt-daemon-driver-vbox (= 12.0.0-1ubuntu3), libvirt-daemon-driver-xen (= 12.0.0-1ubuntu3), libvirt-daemon-plugin-sanlock (= 12.0.0-1ubuntu3), libvirt-daemon-system (= 12.0.0-1ubuntu3)
-Conflicts: libvirt-daemon-system (<< 10.6.0-2~)
+Conflicts: libvirt-daemon-system (<< 10.6.0-2~), virt-hwe
 Breaks: libvirt-clients (<< 6.9.0-2~), libvirt-daemon-driver-lxc (<< 6.9.0-2~), libvirt-daemon-system-sysv (<< 10.6.0-2~), libvirt-sanlock (<< 6.9.0-2~)
-Replaces: libvirt-daemon-system-sysv (<< 10.6.0-2~)
+Replaces: libvirt-daemon-system-sysv (<< 10.6.0-2~), libvirt-daemon-hwe
+Provides: virt, libvirt-daemon
 Section: admin
 Priority: optional
 Homepage: https://libvirt.org/daemons.html#monolithic-driver-daemon

@@ -4,9 +4,11 @@ Version: 12.0.0-1ubuntu3
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 204
-Depends: dnsmasq-base, iptables | nftables, libvirt-common (= 12.0.0-1ubuntu3), libvirt-daemon (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3), libc6 (>= 2.38), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.26.0)
-Breaks: libvirt-daemon (<< 10.6.0-2~), libvirt-daemon-system (<< 10.6.0-2~)
-Replaces: libvirt-daemon (<< 10.6.0-2~), libvirt-daemon-system (<< 10.6.0-2~)
+Depends: dnsmasq-base, iptables | nftables, libvirt-common-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-hwe (= 12.0.0-1ubuntu3), libvirt0-hwe (= 12.0.0-1ubuntu3), libc6 (>= 2.38), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.26.0)
+Breaks: libvirt-daemon-hwe (<< 10.6.0-2~), libvirt-daemon-system-hwe (<< 10.6.0-2~)
+Replaces: libvirt-daemon-hwe (<< 10.6.0-2~), libvirt-daemon-system-hwe (<< 10.6.0-2~), libvirt-daemon-driver-network
+Provides: libvirt-daemon-driver-network, virt-hwe
+Conflicts: virt
 Section: admin
 Priority: optional
 Homepage: https://libvirt.org/formatnetwork.html
