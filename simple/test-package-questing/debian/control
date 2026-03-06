@@ -1,0 +1,25 @@
+Source: test-package
+Section: misc
+Priority: optional
+Maintainer: Hector <hector@example.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: test-package-p1
+Architecture: all
+Provides: test-package-p1, ubuntu-virt 
+Conflicts: ubuntu-virt-hwe 
+Replaces: test-package-p1-hwe 
+Depends: ${misc:Depends}, test-package-p1
+Description: Very simple package that installs one text file
+ This package installs a single text file under /usr/share.
+
+Package: test-package-p2
+Architecture: all
+Provides: test-package-p2, ubuntu-virt 
+Conflicts: ubuntu-virt-hwe 
+Replaces: test-package-p2-hwe 
+Depends: ${misc:Depends}
+Description: Very simple package that installs one text file
+ This package installs a single text file under /usr/share.
