@@ -9,7 +9,7 @@ Recommends: qemu-utils, ipxe-qemu-256k-compat-efi-roms, ovmf, qemu-system-gui (=
 Suggests: samba, vde2, passt
 Conflicts: qemu-kvm, virt-hwe
 Provides: qemu-kvm (= 1:10.2.1+ds-1ubuntu1), qemu-system-amd64 (= 1:10.2.1+ds-1ubuntu1), qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-i386 (= 1:10.2.1+ds-1ubuntu1), qemu-system-native (= 1:10.2.1+ds-1ubuntu1), qemu-system-x86-64 (= 1:10.2.1+ds-1ubuntu1), virt
-Replaces: qemu-system-x86
+Replaces: qemu-system-x86-hwe
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign

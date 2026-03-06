@@ -8,7 +8,7 @@ Depends: libaio1t64 (>= 0.3.93), libbpf1 (>= 1:0.0.8), libc6 (>= 2.42), libfuse3
 Recommends: qemu-utils-hwe, seabios, ipxe-qemu, qemu-system-gui-hwe (= 1:10.2.1+ds-1ubuntu1), qemu-system-modules-spice-hwe (= 1:10.2.1+ds-1ubuntu1), qemu-system-modules-opengl-hwe (= 1:10.2.1+ds-1ubuntu1), qemu-block-extra-hwe (= 1:10.2.1+ds-1ubuntu1)
 Suggests: samba, vde2, passt
 Provides: qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-sparc64 (= 1:10.2.1+ds-1ubuntu1), virt-hwe, qemu-system-sparc
-Conflicts: qemu-system-sparc, virt
+Conflicts: virt
 Replaces: qemu-system-sparc
 Section: otherosfs
 Priority: optional

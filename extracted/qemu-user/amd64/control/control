@@ -6,7 +6,7 @@ Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 133200
 Recommends: qemu-user-binfmt
 Breaks: qemu-user-binfmt (<< 1:9.1.0), qemu-user-static (<< 1:9.1.0)
-Replaces: qemu-user-binfmt (<< 1:9.1.0), qemu-user-static (<< 1:9.1.0), qemu-user
+Replaces: qemu-user-binfmt (<< 1:9.1.0), qemu-user-static (<< 1:9.1.0), qemu-user-hwe
 Built-Using: gcc-15 (= 15.2.0-13ubuntu3), glib2.0 (= 2.87.2-3), glibc (= 2.42-2ubuntu5), sysprof (= 50~beta-1), zlib (= 1:1.3.dfsg+really1.3.1-1ubuntu3)
 Conflicts: virt-hwe
 Provides: virt

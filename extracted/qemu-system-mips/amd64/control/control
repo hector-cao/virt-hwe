@@ -9,7 +9,7 @@ Recommends: qemu-utils, seabios, ipxe-qemu, qemu-system-gui (= 1:10.2.1+ds-1ubun
 Suggests: samba, vde2, passt
 Provides: qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-mips64 (= 1:10.2.1+ds-1ubuntu1), qemu-system-mips64el (= 1:10.2.1+ds-1ubuntu1), qemu-system-mipsel (= 1:10.2.1+ds-1ubuntu1), virt
 Conflicts: virt-hwe
-Replaces: qemu-system-mips
+Replaces: qemu-system-mips-hwe
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign

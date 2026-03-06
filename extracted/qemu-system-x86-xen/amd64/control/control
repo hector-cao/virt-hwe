@@ -6,7 +6,7 @@ Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 98
 Depends: qemu-system-xen (>= 1:7.0+dfsg-7ubuntu1)
 Conflicts: virt-hwe
-Replaces: qemu-system-x86-xen
+Replaces: qemu-system-x86-xen-hwe
 Provides: virt
 Section: oldlibs
 Priority: optional
