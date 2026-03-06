@@ -4,7 +4,7 @@ Version: 12.0.0-1ubuntu3
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 16
-Depends: libvirt-clients-hwe (= 12.0.0-1ubuntu3), libvirt-common-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-common (= 12.0.0-1ubuntu3), libvirt-daemon-config-network-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-config-nwfilter-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-network-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nodedev-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nwfilter-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-qemu-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-secret-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-log-hwe (= 12.0.0-1ubuntu3), libvirt0-hwe (= 12.0.0-1ubuntu3)
+Depends: libvirt-clients-hwe (= 12.0.0-1ubuntu3), libvirt-common-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-common-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-config-network-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-config-nwfilter-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-network-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nodedev-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nwfilter-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-qemu-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-secret-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-log-hwe (= 12.0.0-1ubuntu3), libvirt0-hwe (= 12.0.0-1ubuntu3)
 Provides: libvirt-daemon-system, virt-hwe
 Replaces: libvirt-daemon-system
 Conflicts: virt
