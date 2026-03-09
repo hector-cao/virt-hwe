@@ -8,7 +8,7 @@ Depends: virt, libaio1t64 (>= 0.3.93), libbpf1 (>= 1:0.0.8), libc6 (>= 2.42), li
 Recommends: qemu-utils, ipxe-qemu-256k-compat-efi-roms, ovmf, qemu-system-gui (= 1:10.2.1+ds-1ubuntu1), qemu-system-modules-spice (= 1:10.2.1+ds-1ubuntu1), qemu-system-modules-opengl (= 1:10.2.1+ds-1ubuntu1), qemu-block-extra (= 1:10.2.1+ds-1ubuntu1), cpu-checker
 Suggests: samba, vde2, passt
 Conflicts: qemu-kvm, virt-hwe
-Provides: qemu-kvm (= 1:10.2.1+ds-1ubuntu1), qemu-system-amd64 (= 1:10.2.1+ds-1ubuntu1), qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-i386 (= 1:10.2.1+ds-1ubuntu1), qemu-system-native (= 1:10.2.1+ds-1ubuntu1), qemu-system-x86-64 (= 1:10.2.1+ds-1ubuntu1), virt
+Provides: qemu-kvm (= 1:10.2.1+ds-1ubuntu1), qemu-system-amd64 (= 1:10.2.1+ds-1ubuntu1), qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-i386 (= 1:10.2.1+ds-1ubuntu1), qemu-system-native (= 1:10.2.1+ds-1ubuntu1), qemu-system-x86-64 (= 1:10.2.1+ds-1ubuntu1)
 Replaces: qemu-system-x86-hwe
 Section: otherosfs
 Priority: optional

@@ -8,7 +8,6 @@ Depends: virt, libbz2-1.0, libc6 (>= 2.14), libcurl3t64-gnutls (>= 7.16.3), libi
 Enhances: qemu-system-arm, qemu-system-mips, qemu-system-misc, qemu-system-ppc, qemu-system-riscv, qemu-system-s390x, qemu-system-sparc, qemu-system-x86, qemu-utils
 Conflicts: virt-hwe
 Replaces: qemu-block-extra-hwe
-Provides: virt
 Section: otherosfs
 Priority: optional
 Homepage: http://www.qemu.org/

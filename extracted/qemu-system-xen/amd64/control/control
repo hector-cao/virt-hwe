@@ -8,7 +8,7 @@ Depends: virt, libc6 (>= 2.42), libfdt1 (>= 1.7.2), libglib2.0-0t64 (>= 2.78.0),
 Recommends: qemu-utils, ovmf
 Breaks: qemu-system-x86-xen (<< 1:7.0+dfsg-7ubuntu1)
 Replaces: qemu-system-x86-xen (<< 1:7.0+dfsg-7ubuntu1), qemu-system-xen-hwe
-Provides: qemu-system-x86-xen, virt
+Provides: qemu-system-x86-xen
 Conflicts: virt-hwe
 Section: otherosfs
 Priority: optional

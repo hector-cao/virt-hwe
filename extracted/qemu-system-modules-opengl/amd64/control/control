@@ -8,7 +8,6 @@ Depends: virt, libc6 (>= 2.14), libepoxy0 (>= 1.5.2), libgbm1 (>= 7.11~1), libgl
 Breaks: qemu-system-common (<< 1:8.1.0+ds-1~exp2~), qemu-system-gui (<< 1:8.1.0+ds-1~exp2~)
 Replaces: qemu-system-common (<< 1:8.1.0+ds-1~exp2~), qemu-system-gui (<< 1:8.1.0+ds-1~exp2~), qemu-system-modules-opengl-hwe
 Conflicts: virt-hwe
-Provides: virt
 Section: otherosfs
 Priority: optional
 Homepage: http://www.qemu.org/

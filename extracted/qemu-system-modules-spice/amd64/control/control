@@ -8,7 +8,6 @@ Depends: virt, libc6 (>= 2.17), libglib2.0-0t64 (>= 2.30.0), libpixman-1-0 (>= 0
 Breaks: qemu-system-common (<< 1:8.1.0+ds-1~exp2~)
 Replaces: qemu-system-common (<< 1:8.1.0+ds-1~exp2~), qemu-system-modules-spice-hwe
 Conflicts: virt-hwe
-Provides: virt
 Section: otherosfs
 Priority: optional
 Homepage: http://www.qemu.org/

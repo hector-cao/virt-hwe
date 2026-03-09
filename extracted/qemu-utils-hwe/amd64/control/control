@@ -9,7 +9,7 @@ Recommends: qemu-block-extra-hwe (= 1:10.2.1+ds-1ubuntu1)
 Breaks: qemu-system-common-hwe (<< 1:8.0+dfsg-5~)
 Replaces: qemu-system-common-hwe (<< 1:8.0+dfsg-5~), qemu-utils
 Conflicts: virt
-Provides: virt-hwe, qemu-utils
+Provides: qemu-utils
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign
