@@ -8,7 +8,7 @@ Rules-Requires-Root: no
 
 Package: test-package-p1
 Architecture: all
-Provides: test-package-p1, ubuntu-virt 
+Provides: test-package-p1, ubuntu-virt, test-package-p1-hwe
 Conflicts: ubuntu-virt-hwe 
 Replaces: test-package-p1-hwe 
 Depends: ${misc:Depends}, test-package-p1
@@ -17,7 +17,7 @@ Description: Very simple package that installs one text file
 
 Package: test-package-p2
 Architecture: all
-Provides: test-package-p2, ubuntu-virt 
+Provides: test-package-p2, ubuntu-virt, test-package-p2-hwe
 Conflicts: ubuntu-virt-hwe 
 Replaces: test-package-p2-hwe 
 Depends: ${misc:Depends}

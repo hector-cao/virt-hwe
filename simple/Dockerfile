@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
     ubuntu-release-upgrader-core \
+    dpkg-dev \
     ca-certificates
 
 COPY run.sh /usr/local/bin/run.sh
