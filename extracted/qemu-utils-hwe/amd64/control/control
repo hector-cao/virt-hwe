@@ -8,7 +8,6 @@ Depends: virt-hwe, libaio1t64 (>= 0.3.93), libc6 (>= 2.42), libfuse3-4 (>= 3.17.
 Recommends: qemu-block-extra-hwe (= 1:10.2.1+ds-1ubuntu1)
 Breaks: qemu-system-common-hwe (<< 1:8.0+dfsg-5~)
 Replaces: qemu-system-common-hwe (<< 1:8.0+dfsg-5~), qemu-utils
-Conflicts: virt
 Provides: qemu-utils
 Section: otherosfs
 Priority: optional

@@ -7,7 +7,7 @@ Installed-Size: 67584
 Depends: virt, libaio1t64 (>= 0.3.93), libbpf1 (>= 1:0.0.8), libc6 (>= 2.42), libfdt1 (>= 1.7.2), libfuse3-4 (>= 3.17.2), libglib2.0-0t64 (>= 2.78.0), libgnutls30t64 (>= 3.8.6), libibverbs1 (>= 1.1.6), libjpeg8 (>= 8c), libnuma1 (>= 2.0.15), libpixman-1-0 (>= 0.19.6), libpmem1 (>= 1.4), libpng16-16t64 (>= 1.6.46), librdmacm1t64 (>= 1.0.15), libsasl2-2 (>= 2.1.28+dfsg1), libseccomp2 (>= 2.1.0), libslirp0 (>= 4.9.1), libudev1 (>= 183), liburing2 (>= 2.3), libzstd1 (>= 1.5.5), zlib1g (>= 1:1.2.0), qemu-system-common (= 1:10.2.1+ds-1ubuntu1), qemu-system-data (>> 1:10.2.1+ds~), seabios (>> 1.17.0-1~), ipxe-qemu (>> 1.21.1+git20220113.fbbdc3926+dfsg-1~)
 Recommends: qemu-utils, ipxe-qemu-256k-compat-efi-roms, ovmf, qemu-system-gui (= 1:10.2.1+ds-1ubuntu1), qemu-system-modules-spice (= 1:10.2.1+ds-1ubuntu1), qemu-system-modules-opengl (= 1:10.2.1+ds-1ubuntu1), qemu-block-extra (= 1:10.2.1+ds-1ubuntu1), cpu-checker
 Suggests: samba, vde2, passt
-Conflicts: qemu-kvm, virt-hwe
+Conflicts: qemu-kvm
 Provides: qemu-kvm (= 1:10.2.1+ds-1ubuntu1), qemu-system-amd64 (= 1:10.2.1+ds-1ubuntu1), qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-i386 (= 1:10.2.1+ds-1ubuntu1), qemu-system-native (= 1:10.2.1+ds-1ubuntu1), qemu-system-x86-64 (= 1:10.2.1+ds-1ubuntu1)
 Replaces: qemu-system-x86-hwe
 Section: otherosfs

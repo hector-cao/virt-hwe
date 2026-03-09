@@ -10,7 +10,6 @@ Suggests: samba, vde2, passt
 Breaks: qemu-system-data (<< 1:9.1.0+ds-4~), qemu-system-misc (<< 1:9.1.0+ds-9~)
 Replaces: qemu-system-data (<< 1:9.1.0+ds-4~), qemu-system-misc (<< 1:9.1.0+ds-9~), qemu-system-riscv-hwe
 Provides: qemu-system-any (= 1:10.2.1+ds-1ubuntu1), qemu-system-riscv32 (= 1:10.2.1+ds-1ubuntu1), qemu-system-riscv64 (= 1:10.2.1+ds-1ubuntu1)
-Conflicts: virt-hwe
 Section: otherosfs
 Priority: optional
 Multi-Arch: foreign

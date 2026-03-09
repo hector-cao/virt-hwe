@@ -5,7 +5,6 @@ Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 98
 Depends: virt-hwe, qemu-system-xen-hwe (>= 1:7.0+dfsg-7ubuntu1)
-Conflicts: virt
 Replaces: qemu-system-x86-xen
 Provides: qemu-system-x86-xen
 Section: oldlibs

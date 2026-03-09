@@ -9,7 +9,6 @@ Recommends: qemu-utils-hwe, ovmf
 Breaks: qemu-system-x86-xen-hwe (<< 1:7.0+dfsg-7ubuntu1)
 Replaces: qemu-system-x86-xen-hwe (<< 1:7.0+dfsg-7ubuntu1), qemu-system-xen
 Provides: qemu-system-x86-xen-hwe, qemu-system-xen
-Conflicts: virt
 Section: otherosfs
 Priority: optional
 Homepage: http://www.qemu.org/
