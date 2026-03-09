@@ -8,19 +8,17 @@ EXTRACT_BASE_DIR="${EXTRACT_BASE_DIR:-}"
 
 PACKAGES=(
   libvirt-clients
+  libvirt-clients-qemu
   libvirt-daemon
-  libvirt-daemon-config-network
-  libvirt-daemon-config-nwfilter
-  libvirt-daemon-driver-interface
-  libvirt-daemon-driver-lxc
-  libvirt-daemon-driver-network
-  libvirt-daemon-driver-nodedev
-  libvirt-daemon-driver-nwfilter
+  libvirt-daemon-common
+  libvirt-daemon-log
+  libvirt-daemon-lock
   libvirt-daemon-driver-qemu
-  libvirt-daemon-driver-secret
-  libvirt-daemon-driver-storage-core
+  libvirt-daemon-driver-lxc
+  libvirt-daemon-driver-vbox
+  libvirt-daemon-driver-xen
+  libvirt-daemon-driver-storage
   libvirt-daemon-driver-storage-disk
-  libvirt-daemon-driver-storage-fs
   libvirt-daemon-driver-storage-gluster
   libvirt-daemon-driver-storage-iscsi
   libvirt-daemon-driver-storage-iscsi-direct
@@ -29,9 +27,28 @@ PACKAGES=(
   libvirt-daemon-driver-storage-rbd
   libvirt-daemon-driver-storage-scsi
   libvirt-daemon-driver-storage-zfs
+  libvirt-daemon-driver-network
+  libvirt-daemon-driver-nwfilter
+  libvirt-daemon-driver-interface
+  libvirt-daemon-driver-nodedev
+  libvirt-daemon-driver-secret
+  libvirt-daemon-plugin-lockd
+  libvirt-daemon-plugin-sanlock
   libvirt-daemon-system
+  libvirt-daemon-config-network
+  libvirt-daemon-config-nwfilter
+  libvirt0
+  libvirt-common
+  libvirt-l10n
+  libvirt-doc
+  libvirt-dev
+  libnss-libvirt
+  libvirt-ssh-proxy
+  libvirt-wireshark
   libvirt-daemon-system-systemd
+  libvirt-daemon-system-sysv
   libvirt-login-shell
+  libvirt-sanlock
 )
 
 usage() {
