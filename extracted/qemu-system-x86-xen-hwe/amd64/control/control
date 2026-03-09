@@ -4,7 +4,7 @@ Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 98
-Depends: qemu-system-xen-hwe (>= 1:7.0+dfsg-7ubuntu1)
+Depends: virt-hwe, qemu-system-xen-hwe (>= 1:7.0+dfsg-7ubuntu1)
 Conflicts: virt
 Replaces: qemu-system-x86-xen
 Provides: virt-hwe, qemu-system-x86-xen

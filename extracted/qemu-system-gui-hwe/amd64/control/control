@@ -4,7 +4,7 @@ Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 1212
-Depends: libc6 (>= 2.38), libcairo2 (>= 1.2.4), libepoxy0 (>= 1.0), libgbm1 (>= 12.0.0~0), libgdk-pixbuf-2.0-0 (>= 2.22.0), libglib2.0-0t64 (>= 2.62.0), libgtk-3-0t64 (>= 3.21.4), libjack-jackd2-0 (>= 1.9.10+20150825) | libjack-0.125, libnuma1 (>= 2.0.11), libpipewire-0.3-0t64 (>= 0.3.1), libpixman-1-0 (>= 0.19.6), libpulse0 (>= 0.99.1), libsdl2-2.0-0 (>= 2.0.12), libvirglrenderer1 (>= 1.0.0), libvte-2.91-0 (>= 0.49.92), libx11-6, qemu-system-modules-opengl-hwe (= 1:10.2.1+ds-1ubuntu1), qemu-system-common-hwe (= 1:10.2.1+ds-1ubuntu1), libgl1
+Depends: virt-hwe, libc6 (>= 2.38), libcairo2 (>= 1.2.4), libepoxy0 (>= 1.0), libgbm1 (>= 12.0.0~0), libgdk-pixbuf-2.0-0 (>= 2.22.0), libglib2.0-0t64 (>= 2.62.0), libgtk-3-0t64 (>= 3.21.4), libjack-jackd2-0 (>= 1.9.10+20150825) | libjack-0.125, libnuma1 (>= 2.0.11), libpipewire-0.3-0t64 (>= 0.3.1), libpixman-1-0 (>= 0.19.6), libpulse0 (>= 0.99.1), libsdl2-2.0-0 (>= 2.0.12), libvirglrenderer1 (>= 1.0.0), libvte-2.91-0 (>= 0.49.92), libx11-6, qemu-system-modules-opengl-hwe (= 1:10.2.1+ds-1ubuntu1), qemu-system-common-hwe (= 1:10.2.1+ds-1ubuntu1), libgl1
 Conflicts: virt
 Replaces: qemu-system-gui
 Provides: virt-hwe, qemu-system-gui

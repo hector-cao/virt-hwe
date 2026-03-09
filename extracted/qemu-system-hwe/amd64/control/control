@@ -4,7 +4,7 @@ Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 99
-Depends: qemu-system-arm-hwe, qemu-system-mips-hwe, qemu-system-ppc-hwe, qemu-system-riscv-hwe, qemu-system-s390x-hwe, qemu-system-sparc-hwe, qemu-system-x86-hwe, qemu-system-misc-hwe
+Depends: virt-hwe, qemu-system-arm-hwe, qemu-system-mips-hwe, qemu-system-ppc-hwe, qemu-system-riscv-hwe, qemu-system-s390x-hwe, qemu-system-sparc-hwe, qemu-system-x86-hwe, qemu-system-misc-hwe
 Conflicts: virt
 Replaces: qemu-system
 Provides: virt-hwe, qemu-system

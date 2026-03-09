@@ -4,6 +4,7 @@ Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 133200
+Depends: virt-hwe,
 Recommends: qemu-user-binfmt-hwe
 Breaks: qemu-user-binfmt-hwe (<< 1:9.1.0), qemu-user-static-hwe (<< 1:9.1.0)
 Replaces: qemu-user-binfmt-hwe (<< 1:9.1.0), qemu-user-static-hwe (<< 1:9.1.0), qemu-user
