@@ -1,0 +1,13 @@
+Package: virt-hwe
+Source: qemu
+Version: 1:10.2.1+ds-1ubuntu1
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 133200
+Replaces: virt
+Conflicts: virt
+Section: otherosfs
+Priority: optional
+Multi-Arch: foreign
+Homepage: http://www.qemu.org/
+Description: QEMU virtualization

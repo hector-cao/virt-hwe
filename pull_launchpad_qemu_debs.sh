@@ -30,6 +30,7 @@ PACKAGES=(
   qemu-user
   qemu-user-binfmt
   qemu-utils
+  virt
 )
 
 usage() {

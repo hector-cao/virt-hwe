@@ -69,8 +69,8 @@ if [ -f "$PULL_LIBVIRT_SCRIPT" ]; then
   chmod +x "$PULL_LIBVIRT_SCRIPT"
 fi
 
-echo "Pulling missing .deb files with: $(basename "$PULL_SCRIPT")"
-"$PULL_SCRIPT" --output-dir "$SCRIPT_DIR"
+#echo "Pulling missing .deb files with: $(basename "$PULL_SCRIPT")"
+#"$PULL_SCRIPT" --output-dir "$SCRIPT_DIR"
 
 echo "Packing base+hwe .deb files with: $(basename "$PULL_SCRIPT") --pack --extract-dir '$EXTRACTED_DIR'"
 "$PULL_SCRIPT" --pack --output-dir "$SCRIPT_DIR" --extract-dir "$EXTRACTED_DIR"
@@ -80,8 +80,8 @@ if [ ! -f "$PULL_LIBVIRT_SCRIPT" ]; then
   exit 1
 fi
 
-echo "Pulling+unpacking libvirt controls with: $(basename "$PULL_LIBVIRT_SCRIPT") --version '$LIBVIRT_VERSION'"
-"$PULL_LIBVIRT_SCRIPT" --version "$LIBVIRT_VERSION" --output-dir "$SCRIPT_DIR"
+#echo "Pulling+unpacking libvirt controls with: $(basename "$PULL_LIBVIRT_SCRIPT") --version '$LIBVIRT_VERSION'"
+#"$PULL_LIBVIRT_SCRIPT" --version "$LIBVIRT_VERSION" --output-dir "$SCRIPT_DIR"
 
 echo "Packing libvirt base+hwe .deb files with: $(basename "$PULL_LIBVIRT_SCRIPT") --version '$LIBVIRT_VERSION' --pack --extract-dir '$EXTRACTED_DIR'"
 "$PULL_LIBVIRT_SCRIPT" --version "$LIBVIRT_VERSION" --pack --output-dir "$SCRIPT_DIR" --extract-dir "$EXTRACTED_DIR"
