@@ -1,10 +1,10 @@
-Package: qemu-user-binfmt
+Package: qemu-user-binfmt-hwe
 Source: qemu
 Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 39
-Depends: qemu-user (= 1:10.2.1+ds-1ubuntu1)
+Depends: qemu-user-hwe (= 1:10.2.1+ds-1ubuntu1)
 Recommends: systemd
 Breaks: qemu-user-static
 Replaces: qemu-user-static (<< 1:9.1.0), qemu-user-binfmt-hwe
@@ -14,7 +14,7 @@ Section: otherosfs
 Priority: optional
 Multi-Arch: foreign
 Homepage: http://www.qemu.org/
-Description: QEMU user mode binfmt registration for qemu-user
+Description: QEMU user mode binfmt registration for qemu-user-hwe
  QEMU is a fast processor emulator: currently the package supports Alpha, ARM,
  CRIS, i386, LoongArch, M68k (ColdFire), MicroBlaze, MIPS, PowerPC, RISC-V,
  S390x, SH4, SPARC, x86-64, Xtensa and other emulations. By using dynamic
@@ -25,5 +25,5 @@ Description: QEMU user mode binfmt registration for qemu-user
  binaries from qemu-user.  This package does not contain additional binaries,
  just (sym)links to binfmt registration data in /usr/lib/binfmt.d/ so it is
  picked up automatically by, eg, systemd.  Actual files are provided by
- qemu-user package.
+ qemu-user-hwe package.
 Original-Maintainer: Debian QEMU Team <pkg-qemu-devel@lists.alioth.debian.org>

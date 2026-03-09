@@ -1,5 +1,5 @@
 #!/bin/sh
 set -e
 # Automatically added by dh_installdeb/13.28ubuntu1
-dpkg-maintscript-helper dir_to_symlink /usr/share/doc/qemu-system-sparc qemu-system-common 1:8.0\+dfsg-4\~ qemu-system-sparc -- "$@"
+dpkg-maintscript-helper dir_to_symlink /usr/share/doc/qemu-system-sparc-hwe qemu-system-common-hwe 1:8.0\+dfsg-4\~ qemu-system-sparc-hwe -- "$@"
 # End automatically added section

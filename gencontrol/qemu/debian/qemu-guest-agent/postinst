@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script for qemu-guest-agent
+# postinst script for qemu-guest-agent-hwe
 #
 # see: dh_installdeb(1)
 
@@ -36,14 +36,14 @@ esac
 
 # Automatically added by dh_installinit/13.28ubuntu1
 if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
-	if [ -z "$DPKG_ROOT" ] && [ -x "/etc/init.d/qemu-guest-agent" ]; then
-		update-rc.d qemu-guest-agent defaults >/dev/null
+	if [ -z "$DPKG_ROOT" ] && [ -x "/etc/init.d/qemu-guest-agent-hwe" ]; then
+		update-rc.d qemu-guest-agent-hwe defaults >/dev/null
 		if [ -n "$2" ]; then
 			_dh_action=restart
 		else
 			_dh_action=start
 		fi
-		invoke-rc.d --skip-systemd-native qemu-guest-agent $_dh_action || exit 1
+		invoke-rc.d --skip-systemd-native qemu-guest-agent-hwe $_dh_action || exit 1
 	fi
 fi
 # End automatically added section

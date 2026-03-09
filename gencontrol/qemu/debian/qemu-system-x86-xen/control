@@ -1,10 +1,10 @@
-Package: qemu-system-x86-xen
+Package: qemu-system-x86-xen-hwe
 Source: qemu
 Version: 1:10.2.1+ds-1ubuntu1
 Architecture: amd64
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Installed-Size: 98
-Depends: qemu-system-xen (>= 1:7.0+dfsg-7ubuntu1)
+Depends: qemu-system-xen-hwe (>= 1:7.0+dfsg-7ubuntu1)
 Conflicts: virt-hwe
 Replaces: qemu-system-x86-xen-hwe
 Provides: virt
@@ -13,7 +13,7 @@ Priority: optional
 Multi-Arch: foreign
 Homepage: http://www.qemu.org/
 Description: QEMU full system emulation binaries (x86)
- The former qemu-system-x86-xen binaries are now in qemu-system-xen.
+ The former qemu-system-x86-xen-hwe binaries are now in qemu-system-xen.
  .
  This is a transitional package. You can safely remove it.
 Original-Maintainer: Debian QEMU Team <pkg-qemu-devel@lists.alioth.debian.org>
