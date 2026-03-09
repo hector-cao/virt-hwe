@@ -1,3 +1,0 @@
-b30bf672828a4cd950e19032b2f8c268  usr/lib/libvirt/libvirt_parthelper
-72b8c718cfdbc1d4cc504e4554a7825f  usr/lib/x86_64-linux-gnu/libvirt/connection-driver/libvirt_driver_storage.so
-a8ec7fdbfa148eeb8018a480b49c802c  usr/lib/x86_64-linux-gnu/libvirt/storage-backend/libvirt_storage_backend_fs.so

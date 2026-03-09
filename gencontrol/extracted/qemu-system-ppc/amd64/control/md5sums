@@ -1,5 +1,0 @@
-12708f2e77a49c34b250939814dd4600  usr/bin/qemu-system-ppc
-0944c95698785ac0eaf3ac9010836be3  usr/bin/qemu-system-ppc64
-61bfd018b8c92c931e8e7229bbba0ae0  usr/share/lintian/overrides/qemu-system-ppc
-61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-ppc.1.gz
-61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-ppc64.1.gz

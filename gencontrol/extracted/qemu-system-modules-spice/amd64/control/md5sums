@@ -1,6 +1,0 @@
-e5a130d8dd96825060bf40ae8501e463  usr/lib/x86_64-linux-gnu/qemu/audio-spice.so
-f863e0f07eff00f494921927ab95facf  usr/lib/x86_64-linux-gnu/qemu/chardev-spice.so
-7a133892b3618bc23ce0eb166d12c0d6  usr/lib/x86_64-linux-gnu/qemu/hw-display-qxl.so
-add255a251c72c244f478ad41a27f77c  usr/lib/x86_64-linux-gnu/qemu/ui-spice-app.so
-666c92aa867278433dbf87f07b4dd9b0  usr/lib/x86_64-linux-gnu/qemu/ui-spice-core.so
-7259028f4bd8f3a99b7fc9c3b1387ce1  usr/share/doc/qemu-system-modules-spice/copyright

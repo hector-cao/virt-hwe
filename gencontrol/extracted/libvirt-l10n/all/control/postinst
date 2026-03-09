@@ -1,5 +1,0 @@
-#!/bin/sh
-set -e
-# Automatically added by dh_installdeb/13.28ubuntu1
-dpkg-maintscript-helper dir_to_symlink /usr/share/doc/libvirt-l10n libvirt-common 10.6.0-2\~ -- "$@"
-# End automatically added section

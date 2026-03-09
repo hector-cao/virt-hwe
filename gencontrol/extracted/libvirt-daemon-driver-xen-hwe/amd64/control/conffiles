@@ -1,4 +1,0 @@
-/etc/libvirt/libxl-lockd.conf
-/etc/libvirt/libxl-sanlock.conf
-/etc/libvirt/libxl.conf
-/etc/logrotate.d/libvirtd.libxl

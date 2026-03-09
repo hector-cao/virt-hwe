@@ -1,4 +1,0 @@
-dc8a58c0ec70ef5da1974c093fc3126b  usr/lib/libvirt/libvirt_lxc
-8c0e1d6110a36506be5c09eee7e93e77  usr/lib/x86_64-linux-gnu/libvirt/connection-driver/libvirt_driver_lxc.so
-a5005b50cfc2763f02734888ad849a9d  usr/share/augeas/lenses/libvirtd_lxc.aug
-daddb80dfff7d59c71fd7fe9167d8747  usr/share/augeas/lenses/tests/test_libvirtd_lxc.aug

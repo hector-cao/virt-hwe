@@ -1,7 +1,0 @@
-c42b721f98bbd8e24323e3d100b6b869  usr/lib/x86_64-linux-gnu/qemu/block-curl.so
-ecad59e41c6b9b6294d44fbd818ce6fe  usr/lib/x86_64-linux-gnu/qemu/block-dmg-bz2.so
-79915a3ff60c5b60b737643fe95a677f  usr/lib/x86_64-linux-gnu/qemu/block-iscsi.so
-d709ecdb10fae26afe66894ddb612b3b  usr/lib/x86_64-linux-gnu/qemu/block-nfs.so
-840148de317a2e7820b75146099a4069  usr/lib/x86_64-linux-gnu/qemu/block-rbd.so
-2ec651cc0a5313b065ed81ed5596d704  usr/lib/x86_64-linux-gnu/qemu/block-ssh.so
-7259028f4bd8f3a99b7fc9c3b1387ce1  usr/share/doc/qemu-block-extra/copyright

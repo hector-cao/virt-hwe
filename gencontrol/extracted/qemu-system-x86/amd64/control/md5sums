@@ -1,9 +1,0 @@
-f452dcb1a8390119f54c482ed8a7cd92  usr/bin/kvm-spice
-ec95b270d1f7a7c27755ff4e78246521  usr/bin/qemu-system-i386
-b9bb4936a10347b8bc31fdd2a313de35  usr/bin/qemu-system-x86_64
-6ff8421c9b84f8f9d2787144a8d768c0  usr/bin/qemu-system-x86_64-microvm
-8b19aeba476573820e3ce9a0720f3564  usr/bin/qemu-system-x86_64-spice
-c9e6fae10e334ff12688af5364b88741  usr/share/man/man1/kvm-spice.1.gz
-61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-i386.1.gz
-61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-x86_64-microvm.1.gz
-61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-x86_64.1.gz

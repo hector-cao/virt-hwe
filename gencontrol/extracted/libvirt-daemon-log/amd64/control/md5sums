@@ -1,8 +1,0 @@
-a258f85b9847d4ac8f156a2fe87db955  usr/lib/systemd/system/virtlogd-admin.socket
-d4f815fa330b6b60ac9271c2d6e7453b  usr/lib/systemd/system/virtlogd.service
-6e7fabd290136c3c09b89162c407fa56  usr/lib/systemd/system/virtlogd.socket
-73b397f36008fd52af6a7139186abe7b  usr/sbin/virtlogd
-9cf1ac59ee73ca2da904ae6f7ac3d168  usr/share/augeas/lenses/tests/test_virtlogd.aug
-23e0ab3cf03627a6a75a84a27fd4ca5d  usr/share/augeas/lenses/virtlogd.aug
-60edaad3c5d34987b38e509cf8942df7  usr/share/lintian/overrides/libvirt-daemon-log
-9a5f55fc712af30c10ae2bfb0ab7d845  usr/share/man/man8/virtlogd.8.gz

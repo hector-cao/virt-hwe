@@ -1,4 +1,0 @@
-/etc/apparmor.d/abstractions/libvirt-lxc
-/etc/apparmor.d/libvirt/TEMPLATE.lxc
-/etc/libvirt/lxc.conf
-/etc/logrotate.d/libvirtd.lxc
