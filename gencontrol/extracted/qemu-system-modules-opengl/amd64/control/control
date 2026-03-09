@@ -1,0 +1,19 @@
+Package: qemu-system-modules-opengl
+Source: qemu
+Version: 1:10.2.1+ds-1ubuntu1
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 833
+Depends: libc6 (>= 2.14), libepoxy0 (>= 1.5.2), libgbm1 (>= 7.11~1), libglib2.0-0t64 (>= 2.83.0), libpixman-1-0 (>= 0.25.2), libvirglrenderer1 (>= 1.0.0), qemu-system-common (= 1:10.2.1+ds-1ubuntu1)
+Breaks: qemu-system-common (<< 1:8.1.0+ds-1~exp2~), qemu-system-gui (<< 1:8.1.0+ds-1~exp2~)
+Replaces: qemu-system-common (<< 1:8.1.0+ds-1~exp2~), qemu-system-gui (<< 1:8.1.0+ds-1~exp2~), qemu-system-modules-opengl-hwe
+Conflicts: virt-hwe
+Provides: virt
+Section: otherosfs
+Priority: optional
+Homepage: http://www.qemu.org/
+Description: QEMU full system emulation binaries (OpenGL display modules)
+ This package provides optional OpenGL display support modules for QEMU full
+ system emulation (qemu-system-*) packages.  It also provides D-Bus display
+ type.
+Original-Maintainer: Debian QEMU Team <pkg-qemu-devel@lists.alioth.debian.org>

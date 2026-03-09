@@ -1,0 +1,3 @@
+ce889560e85e2a3226d6ddd3c494a1be  usr/lib/x86_64-linux-gnu/libvirt/connection-driver/libvirt_driver_libxl.so
+d0d5843f1082a3e788fd1d3e68b17612  usr/share/augeas/lenses/libvirtd_libxl.aug
+3562ce4c7aa5446c6753a3be72f0eda1  usr/share/augeas/lenses/tests/test_libvirtd_libxl.aug

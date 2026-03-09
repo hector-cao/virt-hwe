@@ -1,0 +1,24 @@
+Package: libvirt-daemon-driver-storage-iscsi-direct
+Source: libvirt
+Version: 12.0.0-1ubuntu3
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 45
+Depends: libvirt-common (= 12.0.0-1ubuntu3), libvirt-daemon (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3), libc6 (>= 2.4), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.24.0), libiscsi7 (>= 1.18.0)
+Recommends: qemu-block-extra
+Provides: virt
+Conflicts: virt-hwe
+Replaces: libvirt-daemon-driver-storage-iscsi-direct-hwe
+Section: admin
+Priority: optional
+Homepage: https://libvirt.org/storage.html#iscsi-direct-pool
+Description: virtualization daemon - iSCSI (libiscsi) storage driver
+ libvirt exposes a long-term stable API that can be used to interact with
+ various hypervisors. Its architecture is highly modular, with most features
+ implemented as optional drivers. It can be used from C as well as several
+ other programming languages, and it forms the basis of virtualization
+ solutions tailored for a range of use cases.
+ .
+ This package contains the storage driver for iSCSI volumes, implemented
+ using libiscsi.
+Original-Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>

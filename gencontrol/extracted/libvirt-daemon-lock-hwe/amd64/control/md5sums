@@ -1,0 +1,10 @@
+549841386cf04dbdbe15b6f75340fb6d  usr/lib/systemd/system/virtlockd-admin.socket
+24ce904116792bb6c3a2df793bdeb64b  usr/lib/systemd/system/virtlockd.service
+28118be681e8e194a78a44284c813d9b  usr/lib/systemd/system/virtlockd.socket
+007f741fe3898cbb29112eb8ecd451f4  usr/sbin/virtlockd
+d1f020bce71414a8c328f8e38edc6a5d  usr/share/augeas/lenses/libvirt_lockd.aug
+ffcbb7575a877563c954cf8de0e50ab3  usr/share/augeas/lenses/tests/test_libvirt_lockd.aug
+1ce5ec9b95b83af49e86b70c13fd4314  usr/share/augeas/lenses/tests/test_virtlockd.aug
+c9f8d668600e486f18dd5384c9825c87  usr/share/augeas/lenses/virtlockd.aug
+db531e371f35f144bfac45f3b419501f  usr/share/lintian/overrides/libvirt-daemon-lock
+a6932af07f118583c4e10519af6bde4a  usr/share/man/man8/virtlockd.8.gz

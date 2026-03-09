@@ -1,0 +1,24 @@
+Package: libvirt-daemon-driver-storage-disk
+Source: libvirt
+Version: 12.0.0-1ubuntu3
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 41
+Depends: libvirt-common (= 12.0.0-1ubuntu3), libvirt-daemon (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3), parted, libc6 (>= 2.4), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.12.0)
+Breaks: libvirt-daemon (<< 10.6.0-2~)
+Replaces: libvirt-daemon (<< 10.6.0-2~), libvirt-daemon-driver-storage-disk-hwe
+Provides: virt
+Conflicts: virt-hwe
+Section: admin
+Priority: optional
+Homepage: https://libvirt.org/storage.html#disk-pool
+Description: virtualization daemon - disk storage driver
+ libvirt exposes a long-term stable API that can be used to interact with
+ various hypervisors. Its architecture is highly modular, with most features
+ implemented as optional drivers. It can be used from C as well as several
+ other programming languages, and it forms the basis of virtualization
+ solutions tailored for a range of use cases.
+ .
+ This package contains the storage driver that handles volumes as partitions
+ of a physical disk.
+Original-Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>

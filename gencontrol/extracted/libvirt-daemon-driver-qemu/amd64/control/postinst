@@ -1,0 +1,135 @@
+#!/bin/sh
+
+set -e
+
+# summary of how this script can be called:
+#
+#   * <postinst> `configure' <most-recently-configured-version>
+#   * <old-postinst> `abort-upgrade' <new-version>
+#   * <conflictor's-postinst> `abort-remove' `in-favour' <package> <new-version>
+#   * <postinst> `abort-remove'
+#   * <deconfigured's-postinst> `abort-deconfigure' `in-favour' <failed-install-package>
+#     <version> `removing' <conflicting-package> <version>
+#
+# for details, see https://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+. /usr/share/debconf/confmodule
+
+# Run dh addons first so that sysusers.d can create users/groups before statoverride
+
+# Automatically added by dh_installsysusers/13.28ubuntu1
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+   systemd-sysusers ${DPKG_ROOT:+--root="$DPKG_ROOT"} libvirt-daemon-driver-qemu.conf libvirt-qemu.conf
+fi
+# End automatically added section
+# Automatically added by dh_installdeb/13.28ubuntu1
+dpkg-maintscript-helper dir_to_symlink /usr/share/doc/libvirt-daemon-driver-qemu libvirt-common 10.6.0-2\~ -- "$@"
+# End automatically added section
+
+
+add_users_groups()
+{
+    # Add each sudo user to the libvirt group
+    for u in $(getent group sudo | sed -e "s/^.*://" -e "s/,/ /g"); do
+        adduser "$u" libvirt >/dev/null || true
+    done
+}
+
+add_statoverrides()
+{
+    ROOT_DIRS="
+        /var/cache/libvirt/qemu/
+    "
+
+    QEMU_DIRS="
+        /var/lib/libvirt/qemu/
+    "
+
+    QEMU_CONF="/etc/libvirt/qemu.conf"
+
+    SWTPM_DIR="/var/log/swtpm/libvirt/qemu"
+
+    for dir in ${ROOT_DIRS}; do
+        if ! dpkg-statoverride --list "${dir}" >/dev/null 2>&1; then
+            [ ! -e "${dir}" ] || chown root:root "${dir}"
+            [ ! -e "${dir}" ] || chmod 0711 "${dir}"
+        fi
+    done
+
+    for dir in ${QEMU_DIRS}; do
+        if ! dpkg-statoverride --list "${dir}" >/dev/null 2>&1; then
+            [ ! -e "${dir}" ] || chown libvirt-qemu:libvirt-qemu "${dir}"
+            [ ! -e "${dir}" ] || chmod 0750 "${dir}"
+        fi
+    done
+
+    if ! dpkg-statoverride --list "${QEMU_CONF}" >/dev/null 2>&1; then
+        [ ! -e "${QEMU_CONF}" ] || chown root:root "${QEMU_CONF}"
+        [ ! -e "${QEMU_CONF}" ] || chmod 0600 "${QEMU_CONF}"
+    fi
+
+    # swtpm shall use user swtpm (LP: #1948880)
+    if ! dpkg-statoverride --list "${SWTPM_DIR}" >/dev/null 2>&1; then
+        [ ! -e "${SWTPM_DIR}" ] || chown swtpm:swtpm "${SWTPM_DIR}"
+        [ ! -e "${SWTPM_DIR}" ] || chmod 0700 "${SWTPM_DIR}"
+    fi
+}
+
+case "$1" in
+    configure)
+        add_users_groups
+        add_statoverrides
+
+        # Make sure the log directory doesn't get removed on package removal
+        # since logrotate chokes otherwise
+        touch /var/log/libvirt/qemu/.placeholder
+
+        # Directories used for channels until 9.7.0-1
+        if [ -d /var/lib/libvirt/qemu/channel/target ]; then
+            rmdir --ignore-fail-on-non-empty /var/lib/libvirt/qemu/channel/target
+        fi
+        if [ -d /var/lib/libvirt/qemu/channel ]; then
+            rmdir --ignore-fail-on-non-empty /var/lib/libvirt/qemu/channel
+        fi
+
+        # Force refresh of capabilities (#731815)
+        rm -f /var/cache/libvirt/qemu/capabilities/*.xml
+
+        # Obsolete AppArmor stuff included until 9.6.0-1
+        ABSTRACTIONS_DIR="/etc/apparmor.d/abstractions"
+        LOCAL_ABSTRACTIONS_DIR="/etc/apparmor.d/local/abstractions"
+        pkg="libvirt-daemon-driver-qemu"
+        name="libvirt-qemu"
+
+        abstraction="$ABSTRACTIONS_DIR/$name"
+        local_abstraction="$LOCAL_ABSTRACTIONS_DIR/$name"
+
+        expected=$(dpkg-query --showformat='${Conffiles}\n' --show "$pkg" | grep -E "^ $abstraction " | sed -E 's/^.* ([0-9a-f]+)$/\1/g')
+        actual=$(md5sum "$abstraction" 2>/dev/null | sed -E 's/^([0-9a-f]+) .*$/\1/g')
+
+        # Delete the local abstraction if it's empty and the abstraction
+        # itself contains no customizations
+        if [ ! -s "$local_abstraction" ] && [ -n "$actual" ] && [ "$actual" = "$expected" ]; then
+            rm -f "$local_abstraction"
+        fi
+        if [ -d "$LOCAL_ABSTRACTIONS_DIR" ]; then
+            rmdir --ignore-fail-on-non-empty "$LOCAL_ABSTRACTIONS_DIR"
+        fi
+
+        # Trigger daemon restart after installing a driver
+        dpkg-trigger libvirt-restart-libvirtd
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+db_stop
+
+exit 0

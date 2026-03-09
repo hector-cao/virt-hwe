@@ -1,0 +1,9 @@
+eb8eafa9610d10c593cf7a8a56b61aa8  usr/lib/firewalld/policies/libvirt-routed-in.xml
+d46eeb83579c90b2f8409c060b5d15e9  usr/lib/firewalld/policies/libvirt-routed-out.xml
+1436c3591efc35af49c68abee2d0e06f  usr/lib/firewalld/policies/libvirt-to-host.xml
+7f027b821f2c915904d2d9a8f3de790b  usr/lib/firewalld/zones/libvirt-routed.xml
+2caa2b0bfc2d3d5ec3f8464019a76788  usr/lib/firewalld/zones/libvirt.xml
+f97e53a232d58356d218503d668a0729  usr/lib/libvirt/libvirt_leaseshelper
+8f6151ac1bc8b9b75244e3e55a62519d  usr/lib/x86_64-linux-gnu/libvirt/connection-driver/libvirt_driver_network.so
+e86795f09172465b4f187378a5ab768a  usr/share/augeas/lenses/libvirtd_network.aug
+a8ea79f9a9f29a2bfc617a2bc0e65d9b  usr/share/augeas/lenses/tests/test_libvirtd_network.aug

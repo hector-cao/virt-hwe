@@ -1,0 +1,4 @@
+/etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
+/etc/default/libvirt-guests
+/etc/init.d/libvirt-guests
+/etc/sasl2/libvirt.conf

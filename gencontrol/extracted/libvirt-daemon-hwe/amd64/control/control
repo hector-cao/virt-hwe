@@ -1,0 +1,32 @@
+Package: libvirt-daemon-hwe
+Source: libvirt
+Version: 12.0.0-1ubuntu3
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 861
+Depends: libvirt-common-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-common-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-log-hwe (= 12.0.0-1ubuntu3), libvirt0-hwe (= 12.0.0-1ubuntu3), logrotate, libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.26.0), libtirpc3t64 (>= 1.0.2), libxml2-16 (>= 2.14.1)
+Recommends: libvirt-daemon-driver-interface-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-network-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nodedev-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nwfilter-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-qemu-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-secret-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-disk-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-iscsi-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-logical-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-mpath-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-scsi-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-lock-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-plugin-lockd-hwe (= 12.0.0-1ubuntu3)
+Suggests: libvirt-daemon-driver-lxc-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-gluster-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-iscsi-direct-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-rbd-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage-zfs-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-vbox-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-xen-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-plugin-sanlock-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-system-hwe (= 12.0.0-1ubuntu3)
+Conflicts: libvirt-daemon-system (<< 10.6.0-2~), virt
+Breaks: libvirt-clients-hwe (<< 6.9.0-2~), libvirt-daemon-driver-lxc-hwe (<< 6.9.0-2~), libvirt-daemon-system-sysv-hwe (<< 10.6.0-2~), libvirt-sanlock-hwe (<< 6.9.0-2~)
+Replaces: libvirt-daemon-system-sysv-hwe (<< 10.6.0-2~), libvirt-daemon
+Provides: libvirt-daemon, virt-hwe
+Section: admin
+Priority: optional
+Homepage: https://libvirt.org/daemons.html#monolithic-driver-daemon
+Description: virtualization daemon
+ libvirt exposes a long-term stable API that can be used to interact with
+ various hypervisors. Its architecture is highly modular, with most features
+ implemented as optional drivers. It can be used from C as well as several
+ other programming languages, and it forms the basis of virtualization
+ solutions tailored for a range of use cases.
+ .
+ This package contains the libvirtd daemon, which needs to run on the
+ hypervisor host.
+ .
+ Note that the daemon doesn't do anything useful on its own: connection
+ drivers (e.g. libvirt-daemon-driver-qemu) have to be installed to give it
+ the ability to create domains using various virtualization technologies,
+ while secondary drivers (e.g. libvirt-daemon-driver-network) make it
+ capable of managing other related resources.
+Original-Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>

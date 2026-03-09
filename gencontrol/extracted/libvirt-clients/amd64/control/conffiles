@@ -1,0 +1,1 @@
+remove-on-upgrade /etc/profile.d/libvirt-uri.sh

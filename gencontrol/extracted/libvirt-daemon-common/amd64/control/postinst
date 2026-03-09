@@ -1,0 +1,147 @@
+#!/bin/sh
+
+set -e
+
+# summary of how this script can be called:
+#
+#   * <postinst> `configure' <most-recently-configured-version>
+#   * <old-postinst> `abort-upgrade' <new-version>
+#   * <conflictor's-postinst> `abort-remove' `in-favour' <package> <new-version>
+#   * <postinst> `abort-remove'
+#   * <deconfigured's-postinst> `abort-deconfigure' `in-favour' <failed-install-package>
+#     <version> `removing' <conflicting-package> <version>
+#
+# for details, see https://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+delete_protective_diversion() {
+    local usrfile="$1"
+    local firstver="$2"
+
+    if [ "$3" != "--" ]; then
+        echo "delete_protective_diversion called with the wrong number of arguments" >&2
+        return 1
+    fi
+    for _ in $(seq 1 3); do
+        shift
+    done
+
+    # If the diversion doesn't exist there's nothing to clean up
+    if [ -z "$(dpkg-divert --list "$usrfile")" ]; then
+        return 0
+    fi
+
+    dpkg-divert \
+        --no-rename \
+        --divert "$usrfile.usr-is-merged" \
+        --remove "$usrfile"
+}
+
+add_statoverrides()
+{
+    ROOT_DIRS="
+        /var/lib/libvirt/images/
+        /var/lib/libvirt/boot/
+        /var/cache/libvirt/
+    "
+
+    for dir in ${ROOT_DIRS}; do
+        if ! dpkg-statoverride --list "${dir}" >/dev/null 2>&1; then
+            [ ! -e "${dir}" ] || chown root:root "${dir}"
+            [ ! -e "${dir}" ] || chmod 0711 "${dir}"
+        fi
+    done
+}
+
+DAEMON_COMMON_UNITS="
+    libvirt-guests.service
+    virt-guest-shutdown.target
+"
+
+case "$1" in
+    configure)
+        add_statoverrides
+
+        # Obsolete UML stuff included until 9.0.0-1
+        rm -f /var/log/libvirt/uml/.placeholder
+        if [ -d /var/log/libvirt/uml ]; then
+            rmdir --ignore-fail-on-non-empty /var/log/libvirt/uml
+        fi
+
+        for unit in $DAEMON_COMMON_UNITS; do
+            delete_protective_diversion \
+                "/lib/systemd/system/$unit" \
+                "10.6.0-3~" \
+                -- \
+                "$@"
+        done
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+# Automatically added by dh_apparmor/5.0.0~beta1-0ubuntu2
+if [ "$1" = "configure" ]; then
+    APP_PROFILE="/etc/apparmor.d/usr.lib.libvirt.virt-aa-helper"
+    if [ -f "$APP_PROFILE" ]; then
+        # Add the local/ include
+        LOCAL_APP_PROFILE="/etc/apparmor.d/local/usr.lib.libvirt.virt-aa-helper"
+
+        test -e "$LOCAL_APP_PROFILE" || {
+            mkdir -p `dirname "$LOCAL_APP_PROFILE"`
+            install --mode 644 /dev/null "$LOCAL_APP_PROFILE"
+        }
+
+        # Reload the profile, including any abstraction updates
+        if aa-enabled --quiet 2>/dev/null; then
+            apparmor_parser -r -T -W "$APP_PROFILE" || true
+        fi
+    fi
+fi
+# End automatically added section
+# Automatically added by dh_installsysusers/13.28ubuntu1
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+   systemd-sysusers ${DPKG_ROOT:+--root="$DPKG_ROOT"} libvirt.conf
+fi
+# End automatically added section
+# Automatically added by dh_installinit/13.28ubuntu1
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	if [ -x "/etc/init.d/libvirt-guests" ]; then
+		update-rc.d libvirt-guests defaults >/dev/null || exit 1
+	fi
+fi
+# End automatically added section
+# Automatically added by dh_installsystemd/13.28ubuntu1
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	# The following line should be removed in trixie or trixie+1
+	deb-systemd-helper unmask 'libvirt-guests.service' >/dev/null || true
+
+	# was-enabled defaults to true, so new installations run enable.
+	if deb-systemd-helper --quiet was-enabled 'libvirt-guests.service'; then
+		# Enables the unit on first installation, creates new
+		# symlinks on upgrades if the unit file has changed.
+		deb-systemd-helper enable 'libvirt-guests.service' >/dev/null || true
+	else
+		# Update the statefile to add new symlinks (if any), which need to be
+		# cleaned up on purge. Also remove old symlinks.
+		deb-systemd-helper update-state 'libvirt-guests.service' >/dev/null || true
+	fi
+fi
+# End automatically added section
+# Automatically added by dh_installsystemd/13.28ubuntu1
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	if [ -z "$DPKG_ROOT" ] && [ -d /run/systemd/system ]; then
+		systemctl --system daemon-reload >/dev/null || true
+		deb-systemd-invoke start 'libvirt-guests.service' >/dev/null || true
+	fi
+fi
+# End automatically added section
+
+
+exit 0

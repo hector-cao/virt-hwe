@@ -1,0 +1,12 @@
+a36a96e0e679fc58918cb50aa247f622  usr/lib/libvirt/virt-aa-helper
+40af257265f583a99991986819089b3e  usr/lib/systemd/system/libvirtd-admin.socket
+b9b3eb041add158f9e0cda7c5ac4ae32  usr/lib/systemd/system/libvirtd-ro.socket
+dfbbea7679493c9e83cc2ba6fa28a49d  usr/lib/systemd/system/libvirtd-tcp.socket
+fb12d854ce64cdece54e74470149dd26  usr/lib/systemd/system/libvirtd-tls.socket
+d6fea4b08224cb1b5b83322b882b695a  usr/lib/systemd/system/libvirtd.service
+289ab40386e75aa65e3b3944d9840e4c  usr/lib/systemd/system/libvirtd.socket
+7db65fc237733df10a5d088abdc260de  usr/sbin/libvirtd
+f50f2c1b619391ab7be9117354bd01d7  usr/share/augeas/lenses/libvirtd.aug
+eafa5303b7c2bdd7528e23b201aabbcb  usr/share/augeas/lenses/tests/test_libvirtd.aug
+6e45b36e357fd1322f2eb68880013663  usr/share/lintian/overrides/libvirt-daemon
+36fabcd53803733b58ac15876b001569  usr/share/man/man8/libvirtd.8.gz

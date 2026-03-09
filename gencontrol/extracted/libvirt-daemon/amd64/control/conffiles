@@ -1,0 +1,5 @@
+/etc/apparmor.d/usr.sbin.libvirtd
+/etc/default/libvirtd
+/etc/init.d/libvirtd
+/etc/libvirt/libvirtd.conf
+/etc/logrotate.d/libvirtd

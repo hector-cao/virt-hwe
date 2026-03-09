@@ -1,0 +1,200 @@
+#!/bin/sh
+
+set -e
+
+# summary of how this script can be called:
+#
+#   * <postinst> `configure' <most-recently-configured-version>
+#   * <old-postinst> `abort-upgrade' <new-version>
+#   * <conflictor's-postinst> `abort-remove' `in-favour' <package> <new-version>
+#   * <postinst> `abort-remove'
+#   * <deconfigured's-postinst> `abort-deconfigure' `in-favour' <failed-install-package>
+#     <version> `removing' <conflicting-package> <version>
+#
+# for details, see https://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+create_config_from_template() {
+    local config="$1"
+    local template="$2"
+    local firstver="$3"
+
+    if [ "$4" != "--" ]; then
+        echo "create_config_from_template called with the wrong number of arguments" >&2
+        return 1
+    fi
+    for _ in $(seq 1 4); do
+        shift
+    done
+
+    if [ -n "$2" ] && dpkg --compare-versions -- "$2" gt "$firstver"; then
+        # The package is already configured, and the version that's been
+        # configured is new enough to contain the config file
+        if [ -e "$config.dpkg-backup" ]; then
+            # The package had been configured in the past and has
+            # subsequently been removed without purging, so a backup of
+            # the config file is still present on the disk. Restore it
+            mv -f "$config.dpkg-backup" "$config"
+            return 0
+        else
+            # We're doing a regular upgrade. Don't change anything
+            return 0
+        fi
+    else
+        # We're either installing from scratch, or upgrading from a version
+        # that didn't have the config file yet. Make a copy of the template
+        # in the appropriate location and with the expected permissions
+        install -o root -g root -m 0600 "$template" "$config"
+        return 0
+    fi
+}
+
+add_users_groups() {
+    if ! getent group libvirt-dnsmasq >/dev/null; then
+        addgroup --quiet --system libvirt-dnsmasq
+    fi
+    if ! getent passwd libvirt-dnsmasq >/dev/null; then
+        adduser --quiet \
+                --system \
+                --ingroup libvirt-dnsmasq \
+                --disabled-login \
+                --disabled-password \
+                --home /var/lib/libvirt/dnsmasq \
+                --no-create-home \
+                --gecos "Libvirt Dnsmasq" \
+                libvirt-dnsmasq
+    fi
+}
+
+includes_addr() {
+    addr=${1}
+    mask=${2}
+    viraddr=${3}
+    for n in $(seq 1 4); do
+        curaddrcomponent=$(echo "${addr}" | awk -F. '{ print $'"${n}"' }')
+        tgtaddrcomponent=$(echo "${viraddr}" | awk -F. '{ print $'"${n}"' }')
+        cmp=$((mask/8))
+        if [ "${cmp}" -ge "${n}" ]; then
+            if [ "${curaddrcomponent}" -ne "${tgtaddrcomponent}" ]; then
+                echo "false"
+                return
+            fi
+        elif [ "$((cmp+1))" -ge "${n}" ]; then
+            # do we bother comparing partial (i.e. /25)?
+            :
+        else
+            break
+        fi
+    done
+    echo "true"
+    return
+}
+
+set_autostart()
+{
+    echo "Enabling libvirt default network"
+    if [ ! -e /etc/libvirt/qemu/networks/autostart/default.xml ]; then
+        ln -s /etc/libvirt/qemu/networks/default.xml \
+              /etc/libvirt/qemu/networks/autostart/
+    fi
+    # Since the src:libvirt package was split to not install this autostart
+    # configuration together with (ahead of) libvirt-daemon itself, we need
+    # to explicitly remove the stamp file, so that the trigger
+    # "libvirt-restart-libvirtd" will launch the autostart configuration on
+    # libvirtd.service restart.
+    rm -f /run/libvirt/network/autostarted
+}
+
+# on first install, don't set default network to autostart if we already
+# have a conflicting network. Good for instance for nested libvirt.
+maybe_set_autostart()
+{
+    # 122 is the common default, but iterate a few more options
+    for thirdoctet in $(seq 122 128); do
+        tryip="192.168.${thirdoctet}.1"
+        found=0
+        for pair in $(ip addr show | grep "inet\>" |awk '{ print $2 }'); do
+            a=$(echo "$pair" | awk -F/ '{ print $1}')
+            m=$(echo "$pair" | awk -F/ '{ print $2}')
+            res=$(includes_addr "${a}" "${m}" "${tryip}")
+            if [ "${res}" = "true" ]; then
+                found=1
+            fi
+        done
+        if [ $found -ne 1 ]; then
+            # found a free subnet
+            if [ "${thirdoctet}" -ne "122" ]; then
+                echo "Default libvirt network on 192.168.122.1/24 already taken"
+                echo "Changing to free 192.168.${thirdoctet}.1/24"
+                sed -i 's/192.168.122/192.168.'"${thirdoctet}"'/g' /etc/libvirt/qemu/networks/default.xml
+            fi
+            set_autostart
+            return
+        fi
+    done
+    echo "Not enabling default network as no free network was found"
+}
+
+# begin-remove-after: released:26.04
+# Restore existing configuration files (some created by maintainer scripts from
+# templates) in (old < 11.0.0-2ubuntu8) libvirt-daemon-driver-qemu.postinst.
+# This logic moved into libvirt-daemon-config-network, but we want to keep the
+# original files. (LP: #2107448)
+if [ "$1" = configure ] || [ "$1" = abort-upgrade ]; then
+    dpkg-divert --rename --divert /etc/dnsmasq.d-available/libvirt-daemon.dpkg-upgrade --remove /etc/dnsmasq.d-available/libvirt-daemon
+fi
+# end-remove-after
+
+case "$1" in
+    configure)
+        add_users_groups
+        create_config_from_template \
+            "/etc/libvirt/qemu/networks/default.xml" \
+            "/usr/share/libvirt/networks/default.xml" \
+            "6.9.0-2~" \
+            -- \
+            "$@"
+
+        # On an initial package install, create the default network autostart
+        # symlink if on a system that it will work on.
+        # Note: needs to complete before services are started the first time
+        if [ -z $2 ]; then
+            maybe_set_autostart
+        fi
+
+        # Trigger daemon restart after installing configuration files
+        dpkg-trigger libvirt-restart-libvirtd
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+# Automatically added by dh_installdeb/13.28ubuntu1
+dpkg-maintscript-helper dir_to_symlink /usr/share/doc/libvirt-daemon-config-network libvirt-common 10.6.0-2\~ -- "$@"
+# End automatically added section
+
+
+# We need this after the debhelper generated code so that dpkg-maintscript
+# can do its renamming first.
+if [ "$1" = "configure" ]; then
+    # Configure dnsmasq
+    if [ -f /etc/dnsmasq.d-available/libvirt-daemon ]; then
+        echo "Setting up libvirt-daemon dnsmasq configuration."
+        mkdir -p /etc/dnsmasq.d
+        if [ ! -e /etc/dnsmasq.d/libvirt-daemon ]; then
+            ln -s /etc/dnsmasq.d-available/libvirt-daemon \
+                  /etc/dnsmasq.d/libvirt-daemon
+        fi
+
+        # Try to restart a potential system wide dnsmasq
+        invoke-rc.d dnsmasq restart 2>/dev/null || true
+    fi
+fi
+
+exit 0

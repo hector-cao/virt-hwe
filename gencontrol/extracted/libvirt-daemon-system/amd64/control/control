@@ -1,0 +1,24 @@
+Package: libvirt-daemon-system
+Source: libvirt
+Version: 12.0.0-1ubuntu3
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 16
+Depends: libvirt-clients (= 12.0.0-1ubuntu3), libvirt-common (= 12.0.0-1ubuntu3), libvirt-daemon (= 12.0.0-1ubuntu3), libvirt-daemon-common (= 12.0.0-1ubuntu3), libvirt-daemon-config-network (= 12.0.0-1ubuntu3), libvirt-daemon-config-nwfilter (= 12.0.0-1ubuntu3), libvirt-daemon-driver-network (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nodedev (= 12.0.0-1ubuntu3), libvirt-daemon-driver-nwfilter (= 12.0.0-1ubuntu3), libvirt-daemon-driver-qemu (= 12.0.0-1ubuntu3), libvirt-daemon-driver-secret (= 12.0.0-1ubuntu3), libvirt-daemon-driver-storage (= 12.0.0-1ubuntu3), libvirt-daemon-log (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3)
+Provides: virt
+Conflicts: virt-hwe
+Replaces: libvirt-daemon-system-hwe
+Section: admin
+Priority: optional
+Homepage: https://libvirt.org/
+Description: virtualization daemon - typical QEMU-based deployment
+ libvirt exposes a long-term stable API that can be used to interact with
+ various hypervisors. Its architecture is highly modular, with most features
+ implemented as optional drivers. It can be used from C as well as several
+ other programming languages, and it forms the basis of virtualization
+ solutions tailored for a range of use cases.
+ .
+ This package doesn't contain any files on its own, and is intended as a
+ convenient way to create the most common type of libvirt setup (local QEMU
+ hypervisor) in one go.
+Original-Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>
