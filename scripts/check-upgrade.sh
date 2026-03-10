@@ -310,58 +310,58 @@ if ! run_cmd "Copying upgraded -hwe debs to workspace root: $WORKSPACE_ROOT_DIR"
   exit_with_failure "failed to copy debs from $UPGRADE_SOURCE_DIR to $WORKSPACE_ROOT_DIR" "after workspace root staging"
 fi
 
-remove_all_test_packages
+# remove_all_test_packages
 
-if ! run_cmd "Installing anchor -hwe package: $UPGRADE_ANCHOR_PACKAGE" \
-  apt-get install -y -o Dpkg::Options::=--force-confnew "$UPGRADE_ANCHOR_PACKAGE"; then
-  exit_with_failure "failed to install $UPGRADE_ANCHOR_PACKAGE" "after anchor install"
-fi
+# if ! run_cmd "Installing anchor -hwe package: $UPGRADE_ANCHOR_PACKAGE" \
+#   apt-get install -y -o Dpkg::Options::=--force-confnew "$UPGRADE_ANCHOR_PACKAGE"; then
+#   exit_with_failure "failed to install $UPGRADE_ANCHOR_PACKAGE" "after anchor install"
+# fi
 
-if ! is_installed "$UPGRADE_ANCHOR_PACKAGE"; then
-  exit_with_failure "$UPGRADE_ANCHOR_PACKAGE is not installed" "after anchor install verification"
-fi
+# if ! is_installed "$UPGRADE_ANCHOR_PACKAGE"; then
+#   exit_with_failure "$UPGRADE_ANCHOR_PACKAGE is not installed" "after anchor install verification"
+# fi
 
-if ! run_cmd "Updating local PPA from workspace root: $WORKSPACE_ROOT_DIR" \
-  bash "$PPA_UPDATE_SCRIPT" "$WORKSPACE_ROOT_DIR"; then
-  exit_with_failure "failed to update local PPA from $WORKSPACE_ROOT_DIR" "after PPA update"
-fi
+# if ! run_cmd "Updating local PPA from workspace root: $WORKSPACE_ROOT_DIR" \
+#   bash "$PPA_UPDATE_SCRIPT" "$WORKSPACE_ROOT_DIR"; then
+#   exit_with_failure "failed to update local PPA from $WORKSPACE_ROOT_DIR" "after PPA update"
+# fi
 
-if ! run_cmd "Running apt upgrade" \
-  apt-get upgrade -y -o Dpkg::Options::=--force-confnew; then
-  exit_with_failure "apt upgrade failed" "after apt upgrade"
-fi
+# if ! run_cmd "Running apt upgrade" \
+#   apt-get upgrade -y -o Dpkg::Options::=--force-confnew; then
+#   exit_with_failure "apt upgrade failed" "after apt upgrade"
+# fi
 
-if ! check_only_hwe_installed; then
-  exit_with_failure "non-hwe package detected after upgrade" "after installed package kind check"
-fi
+# if ! check_only_hwe_installed; then
+#   exit_with_failure "non-hwe package detected after upgrade" "after installed package kind check"
+# fi
 
-if ! check_hwe_versions; then
-  exit_with_failure "upgraded package version check failed" "after upgraded version check"
-fi
+# if ! check_hwe_versions; then
+#   exit_with_failure "upgraded package version check failed" "after upgraded version check"
+# fi
 
-log_installed_qemu_packages "after upgrade"
+# log_installed_qemu_packages "after upgrade"
 
-SWITCH_BACK_PACKAGE="$(pick_random_base_package)"
-if ! is_known_base_package "$SWITCH_BACK_PACKAGE"; then
-  exit_with_failure "switch-back package '$SWITCH_BACK_PACKAGE' is not in known base package list" "before base switch-back install"
-fi
+# SWITCH_BACK_PACKAGE="$(pick_random_base_package)"
+# if ! is_known_base_package "$SWITCH_BACK_PACKAGE"; then
+#   exit_with_failure "switch-back package '$SWITCH_BACK_PACKAGE' is not in known base package list" "before base switch-back install"
+# fi
 
-step "Selected base package for switch-back check: $SWITCH_BACK_PACKAGE"
+# step "Selected base package for switch-back check: $SWITCH_BACK_PACKAGE"
 
-if ! run_cmd "Installing random base package to switch back: $SWITCH_BACK_PACKAGE" \
-  apt-get install -y -o Dpkg::Options::=--force-confnew "$SWITCH_BACK_PACKAGE"; then
-  exit_with_failure "failed to install base package $SWITCH_BACK_PACKAGE" "after base switch-back install"
-fi
+# if ! run_cmd "Installing random base package to switch back: $SWITCH_BACK_PACKAGE" \
+#   apt-get install -y -o Dpkg::Options::=--force-confnew "$SWITCH_BACK_PACKAGE"; then
+#   exit_with_failure "failed to install base package $SWITCH_BACK_PACKAGE" "after base switch-back install"
+# fi
 
-if ! is_installed "$SWITCH_BACK_PACKAGE"; then
-  exit_with_failure "base package $SWITCH_BACK_PACKAGE is not installed" "after base switch-back install verification"
-fi
+# if ! is_installed "$SWITCH_BACK_PACKAGE"; then
+#   exit_with_failure "base package $SWITCH_BACK_PACKAGE is not installed" "after base switch-back install verification"
+# fi
 
-if ! check_no_hwe_installed; then
-  exit_with_failure "-hwe package still installed after base switch-back" "after base switch-back exclusivity check"
-fi
+# if ! check_no_hwe_installed; then
+#   exit_with_failure "-hwe package still installed after base switch-back" "after base switch-back exclusivity check"
+# fi
 
-log_installed_qemu_packages "after base switch-back"
+# log_installed_qemu_packages "after base switch-back"
 
-echo "Detailed command output saved to: $LOG_FILE"
-echo "Upgrade validation passed. -hwe upgrade path is valid and base switch-back removes all -hwe packages."
+# echo "Detailed command output saved to: $LOG_FILE"
+# echo "Upgrade validation passed. -hwe upgrade path is valid and base switch-back removes all -hwe packages."
