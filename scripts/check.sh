@@ -37,6 +37,7 @@ while [ "$#" -gt 0 ]; do
 done
 
 PACKAGES=(
+  ubuntu-virt
   qemu-block-extra
   qemu-block-supplemental
   qemu-guest-agent
@@ -59,6 +60,58 @@ PACKAGES=(
   qemu-user
   qemu-user-binfmt
   qemu-utils
+  libvirt-clients
+  libvirt-clients-qemu
+  libvirt-daemon
+  libvirt-daemon-common
+  libvirt-daemon-log
+  libvirt-daemon-lock
+  libvirt-daemon-driver-qemu
+  libvirt-daemon-driver-lxc
+  libvirt-daemon-driver-vbox
+  libvirt-daemon-driver-xen
+  libvirt-daemon-driver-storage
+  libvirt-daemon-driver-storage-disk
+  libvirt-daemon-driver-storage-gluster
+  libvirt-daemon-driver-storage-iscsi
+  libvirt-daemon-driver-storage-iscsi-direct
+  libvirt-daemon-driver-storage-logical
+  libvirt-daemon-driver-storage-mpath
+  libvirt-daemon-driver-storage-rbd
+  libvirt-daemon-driver-storage-scsi
+  libvirt-daemon-driver-storage-zfs
+  libvirt-daemon-driver-network
+  libvirt-daemon-driver-nwfilter
+  libvirt-daemon-driver-interface
+  libvirt-daemon-driver-nodedev
+  libvirt-daemon-driver-secret
+  libvirt-daemon-plugin-lockd
+  libvirt-daemon-plugin-sanlock
+  libvirt-daemon-system
+  libvirt-daemon-config-network
+  libvirt-daemon-config-nwfilter
+  libvirt0
+  libvirt-common
+  libvirt-l10n
+  libvirt-doc
+  libvirt-dev
+  libnss-libvirt
+  libvirt-ssh-proxy
+  libvirt-wireshark
+  libvirt-login-shell
+  libvirt-sanlock
+  libvirt-daemon-system-systemd
+  libvirt-daemon-system-sysv
+  ovmf
+  ovmf-generic
+  ovmf-legacy
+  ovmf-amdsev
+  ovmf-inteltdx
+  qemu-efi-aarch64
+  qemu-efi-riscv64
+  efi-shell-x64
+  efi-shell-aa64
+  efi-shell-riscv64
 )
 
 is_installed() {
@@ -101,23 +154,23 @@ run_cmd_allow_fail() {
   "$@" >>"$LOG_FILE" 2>&1 || true
 }
 
-log_installed_qemu_packages() {
+log_installed_virt_packages() {
   local context="$1"
-  local installed_qemu_packages=()
+  local installed_virt_packages=()
 
-  mapfile -t installed_qemu_packages < <(
+  mapfile -t installed_virt_packages < <(
     dpkg-query -W -f='${binary:Package}\t${db:Status-Status}\t${source:Package}\n' 2>/dev/null \
-      | awk '$2 == "installed" && ($3 == "qemu" || $3 == "qemu-hwe") {print $1}' \
+      | awk '$2 == "installed" && ($3 == "qemu" || $3 == "qemu-hwe" || $3 == "edk2" || $3 == "edk2-hwe" || $3 == "libvirt" || $3 == "libvirt-hwe") {print $1}' \
       | sort
   )
 
-  step "  >>> Installed packages from source qemu/qemu-hwe ($context):"
-  if [ "${#installed_qemu_packages[@]}" -eq 0 ]; then
+  step "  >>> Installed packages ($context):"
+  if [ "${#installed_virt_packages[@]}" -eq 0 ]; then
     step "  (none)"
     return
   fi
 
-  for pkg in "${installed_qemu_packages[@]}"; do
+  for pkg in "${installed_virt_packages[@]}"; do
     step "  - $pkg"
   done
 }
@@ -136,7 +189,7 @@ on_exit() {
   set +e
 
   if [ "$status" -ne 0 ]; then
-    log_installed_qemu_packages "failure snapshot (${FAILURE_CONTEXT})"
+    log_installed_virt_packages "failure snapshot (${FAILURE_CONTEXT})"
   fi
 
   trap - EXIT
@@ -188,7 +241,7 @@ check_exclusive_state() {
   fi
 
   step "Exclusivity check passed ($context)"
-  log_installed_qemu_packages "$context"
+  log_installed_virt_packages "$context"
 
   return 0
 }
@@ -209,7 +262,7 @@ check_external_deps_stage() {
     echo "ERROR [$context]: failed to install debvm"
     return 1
   fi
-  log_installed_qemu_packages "$context after debvm install"
+  log_installed_virt_packages "$context after debvm install"
 
   step "Validating genimage suggests installed one qemu-utils variant ($context)"
   if ! run_cmd "Installing package: genimage with suggests ($context)" \
@@ -231,7 +284,7 @@ check_external_deps_stage() {
     echo "ERROR [$context]: unknown expected set '$expected_set'"
     return 1
   fi
-  log_installed_qemu_packages "$context after genimage install"
+  log_installed_virt_packages "$context after genimage install"
 
   step "Validating sbuild-qemu selected correct qemu-system-x86 variant ($context)"
   if ! run_cmd "Installing package: sbuild-qemu ($context)" \
@@ -275,7 +328,7 @@ check_external_deps_stage() {
     echo "ERROR [$context]: unknown expected set '$expected_set'"
     return 1
   fi
-  log_installed_qemu_packages "$context after libvirt-daemon-driver-qemu install"
+  log_installed_virt_packages "$context after libvirt-daemon-driver-qemu install"
 
   return 0
 }
