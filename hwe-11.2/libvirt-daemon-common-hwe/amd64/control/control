@@ -1,0 +1,24 @@
+Package: libvirt-daemon-common-hwe
+Source: libvirt
+Version: 1:11.2.1+ds-0ubuntu1
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 539
+Depends: dmidecode, gettext-base, iproute2, kmod, libvirt-common (= 12.0.0-1ubuntu3), libvirt0 (= 12.0.0-1ubuntu3), polkitd (>= 121+compat0.1-2), sensible-utils, systemd | systemd-standalone-sysusers | systemd-sysusers, libacl1 (>= 2.2.23), libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.58.0), libreadline8t64 (>= 6.0)
+Recommends: netcat-openbsd
+Suggests: apparmor, auditd, systemtap
+Conflicts: libvirt-daemon-system (<< 10.6.0-2~)
+Breaks: libvirt-clients (<< 10.6.0-2~), libvirt-daemon (<< 10.6.0-2~), libvirt-daemon-system-sysv (<< 10.6.0-2~)
+Replaces: libvirt-clients (<< 10.6.0-2~), libvirt-daemon (<< 10.6.0-2~), libvirt-daemon-system-sysv (<< 10.6.0-2~)
+Section: admin
+Priority: optional
+Homepage: https://libvirt.org/
+Description: virtualization daemon - common files
+ libvirt exposes a long-term stable API that can be used to interact with
+ various hypervisors. Its architecture is highly modular, with most features
+ implemented as optional drivers. It can be used from C as well as several
+ other programming languages, and it forms the basis of virtualization
+ solutions tailored for a range of use cases.
+ .
+ This package contains data files needed by the various libvirt daemons.
+Original-Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>

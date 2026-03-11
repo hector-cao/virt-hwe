@@ -1,0 +1,20 @@
+Package: libvirt-clients-qemu-hwe
+Source: libvirt
+Version: 1:11.2.1+ds-0ubuntu1
+Architecture: all
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 79
+Depends: libvirt-common (<< 12.0.0-1ubuntu3.1~), libvirt-common (>= 12.0.0-1ubuntu3), libvirt0 (<< 12.0.0-1ubuntu3.1~), libvirt0 (>= 12.0.0-1ubuntu3), python3-cryptography, python3-libvirt, python3-lxml, python3:any
+Section: admin
+Priority: optional
+Homepage: https://libvirt.org/
+Description: virtualization library - clients (QEMU specific)
+ libvirt exposes a long-term stable API that can be used to interact with
+ various hypervisors. Its architecture is highly modular, with most features
+ implemented as optional drivers. It can be used from C as well as several
+ other programming languages, and it forms the basis of virtualization
+ solutions tailored for a range of use cases.
+ .
+ This package contains a number of clients that are specifically for use with
+ the QEMU connection driver, e.g. a proxy for the QMP protocol.
+Original-Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>

@@ -1,0 +1,17 @@
+Package: libvirt-daemon-system-systemd-hwe
+Source: libvirt
+Version: 1:11.2.1+ds-0ubuntu1
+Architecture: all
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 10
+Depends: libvirt-common-hwe (<< 12.0.0-1ubuntu3.1~), libvirt-common-hwe (>= 12.0.0-1ubuntu3), libvirt-daemon-system-hwe (<< 12.0.0-1ubuntu3.1~), libvirt-daemon-system-hwe (>= 12.0.0-1ubuntu3), libvirt0-hwe (<< 12.0.0-1ubuntu3.1~), libvirt0-hwe (>= 12.0.0-1ubuntu3)
+Provides: libvirt-daemon-system-systemd, virt-hwe
+Replaces: libvirt-daemon-system-systemd-hwe, libvirt-daemon-system-systemd
+Conflicts: virt
+Section: admin
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://libvirt.org/
+Description: transitional dummy package
+ This is a transitional dummy package and can be safely removed.
+Original-Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>

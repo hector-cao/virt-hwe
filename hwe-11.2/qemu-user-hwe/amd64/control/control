@@ -1,0 +1,33 @@
+Package: qemu-user-hwe
+Source: qemu
+Version: 1:11.2.1+ds-0ubuntu1
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 133200
+Depends: virt-hwe,
+Recommends: qemu-user-binfmt-hwe
+Breaks: qemu-user-binfmt-hwe (<< 1:9.1.0), qemu-user-static-hwe (<< 1:9.1.0)
+Replaces: qemu-user-binfmt-hwe (<< 1:9.1.0), qemu-user-static-hwe (<< 1:9.1.0), qemu-user
+Built-Using: gcc-15 (= 15.2.0-13ubuntu3), glib2.0 (= 2.87.2-3), glibc (= 2.42-2ubuntu5), sysprof (= 50~beta-1), zlib (= 1:1.3.dfsg+really1.3.1-1ubuntu3)
+Provides: qemu-user
+Section: otherosfs
+Priority: optional
+Multi-Arch: foreign
+Homepage: http://www.qemu.org/
+Description: QEMU user mode emulation (static binaries)
+ QEMU is a fast processor emulator: currently the package supports Alpha, ARM,
+ CRIS, i386, LoongArch, M68k (ColdFire), MicroBlaze, MIPS, PowerPC, RISC-V,
+ S390x, SH4, SPARC, x86-64, Xtensa and other emulations. By using dynamic
+ translation it achieves reasonable speed while being easy to port on new host
+ CPUs.
+ .
+ This package provides statically linked user mode emulation binaries.
+ In user mode QEMU can launch Linux processes compiled for one CPU
+ on another CPU.
+ .
+ If qemu-user-binfmt package is also installed, it will register binary
+ format handlers from this qemu-user package with the kernel automatically
+ so it will be possible to run foreign binaries directly.  Without
+ qemu-user-binfmt, it is possible to register certain binfmt(s) by installing
+ symbolic links to /usr/share/qemu/binfmt.d/*.conf in /etc/binfmt.d/.
+Original-Maintainer: Debian QEMU Team <pkg-qemu-devel@lists.alioth.debian.org>

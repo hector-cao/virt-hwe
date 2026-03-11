@@ -1,0 +1,3 @@
+/etc/default/virtlogd
+/etc/init.d/virtlogd
+/etc/libvirt/virtlogd.conf

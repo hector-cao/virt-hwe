@@ -1,0 +1,4 @@
+libvirt-admin 0 libvirt0 (>= 12.0.0)
+libvirt-lxc 0 libvirt0 (>= 12.0.0)
+libvirt-qemu 0 libvirt0 (>= 12.0.0)
+libvirt 0 libvirt0 (>= 12.0.0)

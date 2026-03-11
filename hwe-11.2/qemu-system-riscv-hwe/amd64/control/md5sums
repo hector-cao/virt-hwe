@@ -1,0 +1,5 @@
+71eb9cff00c7f238454f37987cc2fd32  usr/bin/qemu-system-riscv32
+11b2b2363227b9060deb2446c48e194c  usr/bin/qemu-system-riscv64
+6aa8a21918bdf2ab4ee9a45e700a00c1  usr/share/lintian/overrides/qemu-system-riscv
+61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-riscv32.1.gz
+61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-riscv64.1.gz

@@ -1,0 +1,8 @@
+9eac14b6919681dbef1e08b9e5c9821c  usr/bin/qemu-system-mips
+b23d17d1f9619dcd9bf424418d0a90bc  usr/bin/qemu-system-mips64
+47b855ca278a67b955c1e148991b5cfb  usr/bin/qemu-system-mips64el
+93cfdf2fd6031f24157dcb60c87d0914  usr/bin/qemu-system-mipsel
+61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-mips.1.gz
+61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-mips64.1.gz
+61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-mips64el.1.gz
+61d77f89e2c5b755fd7134c9f42fdcdf  usr/share/man/man1/qemu-system-mipsel.1.gz

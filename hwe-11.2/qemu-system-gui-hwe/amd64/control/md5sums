@@ -1,0 +1,9 @@
+e9089388868f38403945fd0aa1bb43a2  usr/lib/qemu/vhost-user-gpu
+e2c98d2ae31d238a1bcdf8cbbb6c16ba  usr/lib/x86_64-linux-gnu/qemu/audio-jack.so
+a348241f94dcc5ebf7dfdceefc723ba2  usr/lib/x86_64-linux-gnu/qemu/audio-pa.so
+ec25ad523e2568eb232102be799b6150  usr/lib/x86_64-linux-gnu/qemu/audio-pipewire.so
+6cf2b4b82cea8d0059a26c805b4d5d7c  usr/lib/x86_64-linux-gnu/qemu/audio-sdl.so
+f155fcfb03c1239d9c4743cbea8156d6  usr/lib/x86_64-linux-gnu/qemu/ui-gtk.so
+6d11ea8c0e7d1c5994da26eb7d8cc799  usr/lib/x86_64-linux-gnu/qemu/ui-sdl.so
+7259028f4bd8f3a99b7fc9c3b1387ce1  usr/share/doc/qemu-system-gui/copyright
+b5ed2adf3f84498483d4500f79c5c1a2  usr/share/qemu/vhost-user/50-qemu-gpu.json

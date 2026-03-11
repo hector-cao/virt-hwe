@@ -1,0 +1,6 @@
+2a5fa4c9703c262cf774b42ea1e9ba8e  usr/lib/libvirt/libvirt_sanlock_helper
+90db989c598248e2879f3d1d3169bd32  usr/lib/x86_64-linux-gnu/libvirt/lock-driver/sanlock.so
+b88c9b7f3dff2da32bc2ab5f24e7ec5e  usr/sbin/virt-sanlock-cleanup
+71aa6e28f8bfa88c8f0ec8a9389f7b50  usr/share/augeas/lenses/libvirt_sanlock.aug
+a3f667f06d2822ea5fc1a2c7459eabb9  usr/share/augeas/lenses/tests/test_libvirt_sanlock.aug
+871b44d4ce1d259fa300bd4a3ba5bdf1  usr/share/man/man8/virt-sanlock-cleanup.8.gz

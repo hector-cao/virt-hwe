@@ -1,0 +1,27 @@
+Package: qemu-utils-hwe
+Source: qemu
+Version: 1:11.2.1+ds-0ubuntu1
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 12631
+Depends: virt-hwe, libaio1t64 (>= 0.3.93), libc6 (>= 2.42), libfuse3-4 (>= 3.17.2), libglib2.0-0t64 (>= 2.78.0), libgnutls30t64 (>= 3.8.2), libnuma1 (>= 2.0.11), libselinux1 (>= 3.1~), liburing2 (>= 2.3), libzstd1 (>= 1.5.5), zlib1g (>= 1:1.1.4)
+Recommends: qemu-block-extra-hwe (= 1:11.2.1+ds-0ubuntu1)
+Breaks: qemu-system-common-hwe (<< 1:8.0+dfsg-5~)
+Replaces: qemu-system-common-hwe (<< 1:8.0+dfsg-5~), qemu-utils
+Provides: qemu-utils
+Section: otherosfs
+Priority: optional
+Multi-Arch: foreign
+Homepage: http://www.qemu.org/
+Description: QEMU utilities
+ QEMU is a fast processor emulator: currently the package supports Alpha, ARM,
+ CRIS, i386, LoongArch, M68k (ColdFire), MicroBlaze, MIPS, PowerPC, RISC-V,
+ S390x, SH4, SPARC, x86-64, Xtensa and other emulations. By using dynamic
+ translation it achieves reasonable speed while being easy to port on new host
+ CPUs.
+ .
+ This package provides QEMU related utilities:
+  * qemu-img: QEMU disk image utility
+  * qemu-io:  QEMU disk exerciser
+  * qemu-nbd: QEMU disk network block device server
+Original-Maintainer: Debian QEMU Team <pkg-qemu-devel@lists.alioth.debian.org>

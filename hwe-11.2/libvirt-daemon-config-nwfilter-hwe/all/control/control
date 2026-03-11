@@ -1,0 +1,23 @@
+Package: libvirt-daemon-config-nwfilter-hwe
+Source: libvirt
+Version: 1:11.2.1+ds-0ubuntu1
+Architecture: all
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 45
+Depends: libvirt-common-hwe (<< 12.0.0-1ubuntu3.1~), libvirt-common-hwe (>= 12.0.0-1ubuntu3), libvirt-daemon-driver-nwfilter-hwe (<< 12.0.0-1ubuntu3.1~), libvirt-daemon-driver-nwfilter-hwe (>= 12.0.0-1ubuntu3), libvirt0-hwe (<< 12.0.0-1ubuntu3.1~), libvirt0-hwe (>= 12.0.0-1ubuntu3)
+Breaks: libvirt-daemon-system (<< 6.9.0-2~)
+Replaces: libvirt-daemon-system (<< 6.9.0-2~), libvirt-daemon-config-nwfilter-hwe, libvirt-daemon-config-nwfilter
+Provides: libvirt-daemon-config-nwfilter, virt-hwe
+Conflicts: virt
+Section: admin
+Priority: optional
+Homepage: https://libvirt.org/
+Description: virtualization daemon - configuration files (default network filters)
+ libvirt exposes a long-term stable API that can be used to interact with
+ various hypervisors. Its architecture is highly modular, with most features
+ implemented as optional drivers. It can be used from C as well as several
+ other programming languages, and it forms the basis of virtualization
+ solutions tailored for a range of use cases.
+ .
+ This package contains the configuration for the default set of nwfilters.
+Original-Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>

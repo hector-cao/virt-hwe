@@ -1,0 +1,23 @@
+Package: libvirt-daemon-driver-lxc-hwe
+Source: libvirt
+Version: 1:11.2.1+ds-0ubuntu1
+Architecture: amd64
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 446
+Depends: libvirt-common-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-hwe (= 12.0.0-1ubuntu3), libvirt-daemon-driver-network-hwe (= 12.0.0-1ubuntu3), libvirt0-hwe (= 12.0.0-1ubuntu3), logrotate, systemd-container | sysvinit-core, libblkid1 (>= 2.17.2), libc6 (>= 2.38), libcap-ng0 (>= 0.7.9), libfuse3-4 (>= 3.17.2), libgcc-s1 (>= 3.3.1), libglib2.0-0t64 (>= 2.44.0), libtirpc3t64 (>= 1.0.2)
+Breaks: libvirt-daemon-hwe (<< 6.9.0-2~), libvirt-daemon-system-hwe (<< 10.6.0-2~)
+Replaces: libvirt-daemon-hwe (<< 6.9.0-2~), libvirt-daemon-system-hwe (<< 10.6.0-2~), libvirt-daemon-driver-lxc
+Provides: libvirt-daemon-driver-lxc, virt-hwe
+Conflicts: virt
+Section: admin
+Priority: optional
+Homepage: https://libvirt.org/drvlxc.html
+Description: virtualization daemon - LXC connection driver
+ libvirt exposes a long-term stable API that can be used to interact with
+ various hypervisors. Its architecture is highly modular, with most features
+ implemented as optional drivers. It can be used from C as well as several
+ other programming languages, and it forms the basis of virtualization
+ solutions tailored for a range of use cases.
+ .
+ This package contains the LXC connection driver.
+Original-Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>
