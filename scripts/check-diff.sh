@@ -80,6 +80,12 @@ PACKAGES=(
   efi-shell-riscv64
 )
 
+EXCLUDE_PATH_PATTERNS=(
+  'usr/share/doc/*'
+  'usr/share/doc-base/*'
+  'usr/share/lintian/overrides/*'
+)
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
@@ -144,6 +150,9 @@ build_file_list() {
   local package_name="$1"
   local package_extract_dir="$EXTRACT_DIR/$package_name"
   local list_path="$2"
+  local rel_path=""
+  local exclude_pattern=""
+  local excluded=0
 
   if [ ! -d "$package_extract_dir" ]; then
     return 1
@@ -151,7 +160,20 @@ build_file_list() {
 
   (
     cd "$package_extract_dir"
-    find . -mindepth 1 ! -type d -printf '%P\n' | sort -u > "$list_path"
+
+    while IFS= read -r rel_path; do
+      excluded=0
+      for exclude_pattern in "${EXCLUDE_PATH_PATTERNS[@]}"; do
+        if [[ "$rel_path" == $exclude_pattern ]]; then
+          excluded=1
+          break
+        fi
+      done
+
+      if [ "$excluded" -eq 0 ]; then
+        printf '%s\n' "$rel_path"
+      fi
+    done < <(find . -mindepth 1 ! -type d -printf '%P\n') | sort -u > "$list_path"
   )
 }
 
