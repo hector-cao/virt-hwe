@@ -12,6 +12,7 @@ SWITCH_BACK_PACKAGE="${SWITCH_BACK_PACKAGE:-}"
 FAILURE_CONTEXT="unexpected failure"
 
 PACKAGES=(
+  ubuntu-virt
   qemu-block-extra
   qemu-block-supplemental
   qemu-guest-agent
@@ -34,6 +35,59 @@ PACKAGES=(
   qemu-user
   qemu-user-binfmt
   qemu-utils
+  libvirt-clients
+  libvirt-clients-qemu
+  libvirt-daemon
+  libvirt-daemon-common
+  libvirt-daemon-log
+  libvirt-daemon-lock
+  libvirt-daemon-driver-qemu
+  libvirt-daemon-driver-lxc
+  libvirt-daemon-driver-vbox
+  libvirt-daemon-driver-xen
+  libvirt-daemon-driver-storage
+  libvirt-daemon-driver-storage-disk
+  libvirt-daemon-driver-storage-gluster
+  libvirt-daemon-driver-storage-iscsi
+  libvirt-daemon-driver-storage-iscsi-direct
+  libvirt-daemon-driver-storage-logical
+  libvirt-daemon-driver-storage-mpath
+  libvirt-daemon-driver-storage-rbd
+  libvirt-daemon-driver-storage-scsi
+  libvirt-daemon-driver-storage-zfs
+  libvirt-daemon-driver-network
+  libvirt-daemon-driver-nwfilter
+  libvirt-daemon-driver-interface
+  libvirt-daemon-driver-nodedev
+  libvirt-daemon-driver-secret
+  libvirt-daemon-plugin-lockd
+  libvirt-daemon-plugin-sanlock
+  libvirt-daemon-system
+  libvirt-daemon-config-network
+  libvirt-daemon-config-nwfilter
+  libvirt0
+  libvirt-common
+  libvirt-l10n
+  libvirt-doc
+  libvirt-dev
+  libnss-libvirt
+  libvirt-ssh-proxy
+  libvirt-wireshark
+  libvirt-login-shell
+  libvirt-sanlock
+  libvirt-daemon-system-systemd
+  libvirt-daemon-system-sysv
+  ovmf
+  ovmf-generic
+  ovmf-legacy
+  ovmf-amdsev
+  ovmf-inteltdx
+  qemu-efi-aarch64
+  qemu-efi-riscv64
+  efi-shell-x64
+  efi-shell-aa64
+  efi-shell-riscv64
+  seabios
 )
 
 usage() {
