@@ -154,17 +154,22 @@ is_installed() {
   [ "$status" = "installed" ]
 }
 
-log_installed_qemu_packages() {
+log_installed_virt_packages() {
   local context="$1"
   local installed_qemu_packages=()
 
   mapfile -t installed_qemu_packages < <(
     dpkg-query -W -f='${binary:Package}\t${db:Status-Status}\t${source:Package}\n' 2>/dev/null \
-      | awk '$2 == "installed" && ($3 == "qemu" || $3 == "qemu-hwe") {print $1}' \
+      | awk '$2 == "installed" && (
+               $3 == "qemu"       || $3 == "qemu-hwe"    ||
+               $3 == "edk2"       || $3 == "edk2-hwe"    ||
+               $3 == "seabios"    || $3 == "seabios-hwe" ||
+               $3 == "libvirt"    || $3 == "libvirt-hwe"
+             ) {print $1}' \
       | sort
   )
 
-  step "  >>> Installed qemu/qemu-hwe packages ($context):"
+  step "  >>> Installed virt packages ($context):"
   if [ "${#installed_qemu_packages[@]}" -eq 0 ]; then
     step "  (none)"
     return
@@ -190,7 +195,7 @@ on_exit() {
   set +e
 
   if [ "$status" -ne 0 ]; then
-    log_installed_qemu_packages "failure snapshot (${FAILURE_CONTEXT})"
+    log_installed_virt_packages "failure snapshot (${FAILURE_CONTEXT})"
   fi
 
   trap - EXIT
@@ -199,7 +204,7 @@ on_exit() {
 
 trap on_exit EXIT
 
-remove_all_qemu_packages() {
+remove_all_virt_packages() {
   local all_pkgs=()
   local base_pkg=""
 
@@ -207,13 +212,13 @@ remove_all_qemu_packages() {
     all_pkgs+=("$base_pkg" "${base_pkg}-hwe")
   done
 
-  run_cmd_allow_fail "Removing all qemu base/-hwe packages (best-effort)" \
+  run_cmd_allow_fail "Removing all virt base/-hwe packages (best-effort)" \
     apt-get remove -y "${all_pkgs[@]}"
 }
 
 verify_only_base_variants() {
   local base_pkg=""
-  local installed_any_qemu=0
+  local installed_any_virt=0
 
   for base_pkg in "${PACKAGES[@]}"; do
     if is_installed "${base_pkg}-hwe"; then
@@ -222,12 +227,12 @@ verify_only_base_variants() {
     fi
 
     if is_installed "$base_pkg"; then
-      installed_any_qemu=1
+      installed_any_virt=1
     fi
   done
 
-  if [ "$installed_any_qemu" -eq 0 ]; then
-    echo "ERROR [default-check]: no base qemu package installed after dependency installs"
+  if [ "$installed_any_virt" -eq 0 ]; then
+    echo "ERROR [default-check]: no base virt package installed after dependency installs"
     return 1
   fi
 
@@ -236,7 +241,7 @@ verify_only_base_variants() {
 
 run_cmd "Refreshing apt metadata" apt-get -o APT::Sandbox::User=root -y update
 
-remove_all_qemu_packages
+remove_all_virt_packages
 
 if ! run_cmd "Installing debvm" apt-get install -y -o Dpkg::Options::=--force-confnew debvm; then
   exit_with_failure "failed to install debvm" "after debvm install"
@@ -258,7 +263,7 @@ if ! verify_only_base_variants; then
   exit_with_failure "base variant verification failed" "after final base variant verification"
 fi
 
-log_installed_qemu_packages "after default dependency installs"
+log_installed_virt_packages "after default dependency installs"
 
 echo "Detailed command output saved to: $LOG_FILE"
 echo "Validation passed. Only base qemu variants are installed."
