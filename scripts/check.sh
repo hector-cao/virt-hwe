@@ -112,6 +112,7 @@ PACKAGES=(
   efi-shell-x64
   efi-shell-aa64
   efi-shell-riscv64
+  seabios
 )
 
 is_installed() {

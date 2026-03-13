@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPTS_DIR="$SCRIPT_DIR/scripts"
 IMAGE_NAME="${IMAGE_NAME:-ubuntu-devel-run}"
-CONTAINER_NAME="${CONTAINER_NAME:-ubuntu-devel-qemu}"
+CONTAINER_NAME="${CONTAINER_NAME:-}"
 PREPARE_DEBS_SCRIPT="$SCRIPT_DIR/prepare_debs.sh"
 ENTRYPOINT_SCRIPT="$SCRIPTS_DIR/entrypoint.sh"
 HWE_11_2_DIR="$SCRIPT_DIR/hwe-11.2"
@@ -52,8 +52,15 @@ if [ "$STAGING_DIR" = "/" ]; then
 fi
 
 if [ -z "$STAGING_DIR" ]; then
-  STAGING_DIR="$(mktemp -d "/tmp/${CONTAINER_NAME}-workspace.XXXXXX")"
+  STAGING_DIR="$(mktemp -d "/tmp/hwe-virt-workspace.XXXXXX")"
   AUTO_STAGING_DIR=1
+fi
+
+if [ -z "$CONTAINER_NAME" ]; then
+  STAGING_BASENAME="$(basename "$STAGING_DIR")"
+  # Keep the generated name Docker-safe in case STAGING_DIR is user-provided.
+  STAGING_BASENAME_SANITIZED="$(echo "$STAGING_BASENAME" | sed 's/[^a-zA-Z0-9_.-]/-/g')"
+  CONTAINER_NAME="hwe-virt-${STAGING_BASENAME_SANITIZED}"
 fi
 
 rm -rf "$STAGING_DIR"

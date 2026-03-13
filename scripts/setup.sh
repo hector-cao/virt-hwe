@@ -2,16 +2,23 @@
 set -euo pipefail
 
 LOCAL_PPA_DIR="${LOCAL_PPA_DIR:-/workspace/local-ppa}"
+DEB_SOURCE_DIR="${DEB_SOURCE_DIR:-/workspace}"
 LOCAL_PPA_LIST="/etc/apt/sources.list.d/local-ppa.list"
 
 publish_local_ppa() {
 	local ppa_dir="$1"
+	local deb_source_dir="$2"
 	local built_debs=()
 
-	mapfile -t built_debs < <(find /workspace -maxdepth 1 -type f -name '*.deb' | sort)
+	if [ ! -d "$deb_source_dir" ]; then
+		echo "Deb source directory '$deb_source_dir' does not exist."
+		return 1
+	fi
+
+	mapfile -t built_debs < <(find "$deb_source_dir" -maxdepth 1 -type f -name '*.deb' | sort)
 
 	if [ "${#built_debs[@]}" -eq 0 ]; then
-		echo "No .deb files found in /workspace. Skipping local PPA publish."
+		echo "No .deb files found in $deb_source_dir. Skipping local PPA publish."
 		return 0
 	fi
 
@@ -19,7 +26,7 @@ publish_local_ppa() {
 	rm -f "$ppa_dir"/* || true
 
 	mkdir -p "$ppa_dir"
-	chmod 755 /workspace || true
+	chmod 755 "$deb_source_dir" || true
 	chmod 755 "$ppa_dir"
 	rm -f "$ppa_dir"/*.deb "$ppa_dir"/Packages "$ppa_dir"/Packages.gz
 	cp -f "${built_debs[@]}" "$ppa_dir"/
@@ -44,7 +51,14 @@ if [ "$#" -gt 0 ] && [ "$1" != "build" ]; then
 	exec "$@"
 fi
 
-publish_local_ppa "$LOCAL_PPA_DIR"
+if [ "$#" -gt 0 ] && [ "$1" = "build" ]; then
+	shift
+	if [ "$#" -gt 0 ]; then
+		DEB_SOURCE_DIR="$1"
+	fi
+fi
+
+publish_local_ppa "$LOCAL_PPA_DIR" "$DEB_SOURCE_DIR"
 
 #cp scripts/99-ubuntu-virt.conf /etc/apt/apt.conf.d/
 cp scripts/apt_hook_ubuntu_virt.sh /usr/local/sbin/

@@ -81,8 +81,6 @@ PACKAGES=(
 )
 
 EXCLUDE_PATH_PATTERNS=(
-  'usr/share/doc/*'
-  'usr/share/doc-base/*'
   'usr/share/lintian/overrides/*'
 )
 

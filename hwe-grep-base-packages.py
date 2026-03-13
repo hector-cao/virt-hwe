@@ -7,6 +7,7 @@ from pathlib import Path
 
 PACKAGE_RE = re.compile(r"^Package:\s*(\S+)\s*$")
 SKIP_PACKAGE_PREFIX = "ubuntu-virt"
+SKIP_FILE_PATTERNS = ("*NEWS", "*changelog", "*TODO*", "*README*", "*LICENSE*", "*COPYING*", "*.1", "*install")
 
 
 def collect_base_packages(control_path: Path) -> list[str]:
@@ -37,6 +38,13 @@ def is_probably_text(path: Path) -> bool:
     return b"\x00" not in raw
 
 
+def should_skip_file(path: Path) -> bool:
+    for pattern in SKIP_FILE_PATTERNS:
+        if path.match(pattern):
+            return True
+    return False
+
+
 def find_occurrences(debian_dir: Path, base_packages: list[str]) -> dict[str, list[tuple[Path, int]]]:
     occurrences: dict[str, list[tuple[Path, int]]] = {pkg: [] for pkg in base_packages}
 
@@ -56,12 +64,18 @@ def find_occurrences(debian_dir: Path, base_packages: list[str]) -> dict[str, li
         if path in {debian_dir / "changelog", debian_dir / "control-in"}:
             continue
 
+        if should_skip_file(path):
+            continue
+
         try:
             lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
         except OSError:
             continue
 
         for line_number, line in enumerate(lines, start=1):
+            if line.startswith("#") or line.startswith("//") or line.startswith("*"):
+                continue
+
             for match in token_re.finditer(line):
                 package = match.group(1)
                 occurrences[package].append((path, line_number))
