@@ -161,12 +161,7 @@ log_installed_virt_packages() {
 
   mapfile -t installed_virt_packages < <(
     dpkg-query -W -f='${binary:Package}\t${db:Status-Status}\t${source:Package}\n' 2>/dev/null \
-      | awk '$2 == "installed" && (
-               $3 == "qemu"       || $3 == "qemu-hwe"   ||
-               $3 == "edk2"       || $3 == "edk2-hwe"   ||
-               $3 == "seabios"    || $3 == "seabios-hwe"   ||
-               $3 == "libvirt"    || $3 == "libvirt-hwe"
-             ) {print $1}' \
+      | awk '$2 == "installed" && $3 ~ /^(qemu|qemu-hwe|edk2|edk2-hwe|seabios|seabios-hwe|libvirt|libvirt-hwe)$/ { print $1 }' \
       | sort
   )
 
